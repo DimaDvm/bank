@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState, useRef } from 'react';
-import axios from 'axios';
+import { getVirtualCardDetailsAPI } from '../../api/api';
 import '../../styles/index.scss';
 
 export const SmsField = ({ handleSuccess }) => {
@@ -12,24 +12,20 @@ export const SmsField = ({ handleSuccess }) => {
 
   const handleNumberChange = (index, value) => {
     const newNumbers = [...numbers];
-    newNumbers[index] = /^\d+$/.test(value) ? value : '';
+    newNumbers[index] = /^\d*$/.test(value) ? value : '';
     setNumbers(newNumbers);
+  
+    const nextEmptyIndex = newNumbers.findIndex(num => num === '');
 
-    if (value && index < inputRefs.current.length - 1) {
+    if (index < inputRefs.current.length - 1 && newNumbers[index] !== '') {
       inputRefs.current[index + 1].current.focus();
+    } else if (nextEmptyIndex >= 0) {
+      inputRefs.current[nextEmptyIndex].current.focus();
     }
   };
 
   const getVirtualCardDetails = (otp) => {
-    const requestData = {
-      key: '1234',
-      otp,
-    };
-
-    axios
-      .get('https://dev2.fin.forkflow.com/fe/virtual-card/details', {
-        params: requestData
-      })
+    getVirtualCardDetailsAPI(otp)
       .then(() => {
         handleSuccess();
       })
