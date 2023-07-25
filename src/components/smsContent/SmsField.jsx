@@ -3,6 +3,15 @@ import React, { useEffect, useState, useRef } from 'react';
 import { getVirtualCardDetailsAPI } from '../../api/api';
 import '../../styles/index.scss';
 
+
+const response = {
+  pan: '1234 5678 9000 8888',
+  expMon: '12',
+  expYear: '29',
+  cardHolderName: 'Johny Cash',
+  cvv: '111'
+}
+
 export const SmsField = ({ handleSuccess }) => {
   const [numbers, setNumbers] = useState(['', '', '', '']);
   const [filled, setFilled] = useState(false);
@@ -27,7 +36,7 @@ export const SmsField = ({ handleSuccess }) => {
   const getVirtualCardDetails = (otp) => {
     getVirtualCardDetailsAPI(otp)
       .then(() => {
-        handleSuccess();
+        handleSuccess(response);
       })
       .catch((error) => {
         handleError(error);
@@ -42,7 +51,7 @@ export const SmsField = ({ handleSuccess }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setError(null);
-    handleSuccess();
+    handleSuccess(response);
 
     const otp = numbers.join('');
 

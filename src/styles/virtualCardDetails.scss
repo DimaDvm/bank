@@ -7,6 +7,7 @@
   background: #FFFFFF08;
   box-shadow: 0px 1px 4px 0px #FFFFFF14 inset;
   box-shadow: 0px 0px 32px 0px #FFFFFF0A inset;
+  z-index: 0;
 }
 
 .background-circle {
@@ -24,6 +25,7 @@
   width: 320px;
   height: 200px;
   background-color: #1E1E1E;
+  color: #ffffff;
   border-radius: 10px;
   border: 1px solid #ffa500;
   transform-style: preserve-3d;
@@ -79,7 +81,7 @@
   font-weight: 400;
   line-height: 8px;
   text-align: right;
-  color: #fff;
+  color: #d2cbcbee;
 }
 
 .black-line {
@@ -106,4 +108,49 @@
 
 .back {
   transform: rotateY(180deg);
+}
+
+.personal-data {
+  margin: 62px 10px 0;
+  text-transform: uppercase;
+  font-family: 'PT Sans', sans-serif;
+  font-weight: 400;
+  line-height: 18px;
+  letter-spacing: 0em;
+
+}
+
+.sub {
+  font-size: 6px;
+  font-weight: 400;
+  line-height: 8px;
+  color: #d2cbcbee;
+}
+
+.dezined {
+  margin-top: 14px;
+  text-transform: none;
+}
+
+.cvv {
+  background-color: #FFFFFF47;
+  border-radius: 2px;
+  padding: 0 4px;
+  letter-spacing: 0.2em;
+  font-size: 14px;
+}
+
+.show-button {
+  color: #ffa500;
+  text-decoration: underline;
+  background: none;
+  border: none;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 12px;
+
+  &:focus {
+    outline: none;
+  }
 }

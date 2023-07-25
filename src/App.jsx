@@ -6,9 +6,11 @@ import { VirtualCardDetails } from './components/showVirtualCard/VirtualCardDeta
 
 export const App = () => {
   const [success, setSuccess] = useState(false);
+  const [details, setDetails] = useState(null);
 
-  const handleSuccess = () => {
+  const handleSuccess = (response) => {
     setSuccess(true);
+    setDetails(response)
   }
 
   return (
@@ -18,7 +20,7 @@ export const App = () => {
           <img src={logo} alt='Logo' />
         </div>
 
-        {success ? <VirtualCardDetails /> : <SmsField handleSuccess={handleSuccess} />}
+        {success ? <VirtualCardDetails details={details} /> : <SmsField handleSuccess={handleSuccess} />}
       </div>
     </div>
   );

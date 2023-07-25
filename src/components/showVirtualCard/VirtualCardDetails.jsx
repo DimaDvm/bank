@@ -1,10 +1,11 @@
+/* eslint-disable react/prop-types */
 import { useState } from 'react';
 import classNames from 'classnames/bind';
 import '../../styles/index.scss';
 import { NoDetails } from './NoDetails/NoDetails';
 import { ShowDetails } from './ShowDetails/ShowDetails';
 
-export const VirtualCardDetails = () => {
+export const VirtualCardDetails = ({ details }) => {
   const [isFlipped, setIsFlipped] = useState(false);
 
   const handleShowDetails = () => {
@@ -19,8 +20,13 @@ export const VirtualCardDetails = () => {
 
       <div className='background-blur'>
         <div className={classNames('bank-card', { 'flipped': isFlipped })}>
-          <div className="back"><ShowDetails /></div>
-          <div className="front"><NoDetails /></div>
+          <div className="back">
+            {details && <ShowDetails details={details} />}
+          </div>
+
+          <div className="front">
+            <NoDetails />
+          </div>
         </div>
 
         <div className="container">
