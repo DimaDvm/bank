@@ -2,6 +2,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { getVirtualCardDetailsAPI } from '../../api/api';
 import '../../styles/index.scss';
+import classNames from 'classnames';
 
 
 const response = {
@@ -84,7 +85,7 @@ export const SmsField = ({ handleSuccess }) => {
   return (
     <>
       <div className="container">
-        <div className='circle' />
+        <div className={classNames('circle', {'red': error})} />
       </div>
 
       <div className="blur">

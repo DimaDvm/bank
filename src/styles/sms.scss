@@ -4,6 +4,11 @@
   height: $circle-size;
   border: 20px solid #ffa500;
   border-radius: 50%;
+  transition: all 0.5s ease-in-out;
+}
+
+.red {
+  border-color: #E30613;
 }
 
 .blur {
@@ -44,6 +49,7 @@
   font-weight: 400;
   line-height: 20px;
   text-align: center;
+  transition: all 0.5s ease-in-out;
 
   &-container {
     height: 20px;
