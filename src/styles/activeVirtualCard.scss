@@ -1,0 +1,91 @@
+.background-blur-active {
+  position: absolute;
+  bottom: 0;
+  height: 80%;
+  width: 100%;
+  backdrop-filter: blur(30px);
+  background: #FFFFFF08;
+  box-shadow: 0px 1px 4px 0px #FFFFFF14 inset;
+  box-shadow: 0px 0px 32px 0px #FFFFFF0A inset;
+  z-index: 0;
+}
+
+.background-circle-active {
+  margin-top: -30px;
+  width: $back-circle-size;
+  height: $back-circle-size;
+  border: 20px solid #ffa500;
+  border-radius: 50%;
+  transition: all 0.5s ease-in-out;
+}
+
+.red {
+  border-color: #E30613;
+}
+
+.bank-card-active {
+  position: relative;
+  top: -60px;
+  margin: 0 auto;
+  width: 320px;
+  height: 200px;
+  background-color: #1E1E1E;
+  color: #ffffff;
+  border-radius: 10px;
+  border: 1px solid #ffa500;
+  transform-style: preserve-3d;
+  transition: transform 1s ease;
+  z-index: 1;
+}
+
+.green {
+  border-color: #59CE11;
+}
+
+.code-section-active {
+  width: 262px;
+  margin: 40px auto;
+}
+
+.steps {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  text-align: center;
+  color: #F59E00;
+  white-space: nowrap;
+}
+
+.title-active {
+  margin-left: -16px;
+}
+
+.button-active {
+  margin-top: 40px;
+  width: 100%;
+  background-color: #59CE11;
+  color: #10131D;
+  border-radius: 20px;
+  height: 50px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  line-height: 20px;
+  transition: all 0.3s ease-in-out;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.pan {
+  color: #F59E00;
+}
+
+.activated-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 27px;
+  color: #59CE11;
+  text-align: center;
+}

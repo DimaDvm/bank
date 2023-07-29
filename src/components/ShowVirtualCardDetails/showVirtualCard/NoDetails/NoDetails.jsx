@@ -1,9 +1,9 @@
-import '../../../styles/index.scss';
+import '../../../../styles/index.scss';
 import classNames from 'classnames';
-import wifi from '../../../img/Wifi.svg';
-import chip from '../../../img/Chip.svg';
-import cardLogo from '../../../img/Card-logo.svg';
-import masterCard from '../../../img/MasterCard.svg';
+import wifi from '../../../../img/Wifi.svg';
+import chip from '../../../../img/Chip.svg';
+import cardLogo from '../../../../img/Card-logo.svg';
+import masterCard from '../../../../img/MasterCard.svg';
 
 export const NoDetails = () => {
   return (

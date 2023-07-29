@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useState } from 'react';
-import '../../../styles/index.scss';
+import '../../../../styles/index.scss';
 
 export const ShowDetails = ({ details }) => {
   const [showCVV, setShowCVV] = useState(false);

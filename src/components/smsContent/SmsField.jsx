@@ -1,22 +1,13 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState, useRef } from 'react';
-import { getVirtualCardDetailsAPI } from '../../api/api';
 import '../../styles/index.scss';
 import classNames from 'classnames';
+import logo from '../../img/Logo.svg';
 
-
-const response = {
-  pan: '1234 5678 9000 8888',
-  expMon: '12',
-  expYear: '29',
-  cardHolderName: 'Johny Cash',
-  cvv: '111'
-}
-
-export const SmsField = ({ handleSuccess }) => {
+export const SmsField = ({ checkSms, error }) => {
   const [numbers, setNumbers] = useState(['', '', '', '']);
   const [filled, setFilled] = useState(false);
-  const [error, setError] = useState(null);
+
 
   const inputRefs = useRef(numbers.map(() => React.createRef()));
 
@@ -24,7 +15,7 @@ export const SmsField = ({ handleSuccess }) => {
     const newNumbers = [...numbers];
     newNumbers[index] = /^\d*$/.test(value) ? value : '';
     setNumbers(newNumbers);
-  
+
     const nextEmptyIndex = newNumbers.findIndex(num => num === '');
 
     if (index < inputRefs.current.length - 1 && newNumbers[index] !== '') {
@@ -34,30 +25,13 @@ export const SmsField = ({ handleSuccess }) => {
     }
   };
 
-  const getVirtualCardDetails = (otp) => {
-    getVirtualCardDetailsAPI(otp)
-      .then(() => {
-        handleSuccess(response);
-      })
-      .catch((error) => {
-        handleError(error);
-      });
-  };
-
-  const handleError = () => {
-    setError('Wrong OTP code. Please try another one!');
-    setTimeout(() => setError(null), 2000);
-  }
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    setError(null);
-    handleSuccess(response);
 
     const otp = numbers.join('');
 
     setNumbers(['', '', '', '']);
-    getVirtualCardDetails(otp);
+    checkSms(otp);
   };
 
   const handleFillInputs = async (e) => {
@@ -69,7 +43,7 @@ export const SmsField = ({ handleSuccess }) => {
       const updatedNumbers = numbers.map((num, index) => newNumbers[index] || num);
       setNumbers(updatedNumbers);
     } catch (error) {
-      console.error('Error reading text from clipboard:', error);
+      throw new Error('Error reading clipboard: ' + error.message);
     }
   };
 
@@ -83,9 +57,13 @@ export const SmsField = ({ handleSuccess }) => {
   }, [numbers]);
 
   return (
-    <>
+    <div className='card'>
       <div className="container">
-        <div className={classNames('circle', {'red': error})} />
+        <img src={logo} alt='Logo' />
+      </div>
+
+      <div className="container">
+        <div className={classNames('circle', { 'red': error })} />
       </div>
 
       <div className="blur">
@@ -127,6 +105,6 @@ export const SmsField = ({ handleSuccess }) => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
