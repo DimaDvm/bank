@@ -42,6 +42,11 @@ export const SmsField = ({ checkSms, error }) => {
       const newNumbers = formattedText.padEnd(4, '').split('').slice(0, 4);
       const updatedNumbers = numbers.map((num, index) => newNumbers[index] || num);
       setNumbers(updatedNumbers);
+  
+      const nextEmptyIndex = updatedNumbers.findIndex(num => num === '');
+      if (nextEmptyIndex >= 0) {
+        inputRefs.current[nextEmptyIndex].current.focus();
+      }
     } catch (error) {
       throw new Error('Error reading clipboard: ' + error.message);
     }
@@ -93,7 +98,6 @@ export const SmsField = ({ checkSms, error }) => {
             </div>
 
             <div className="sms-control">
-              <div className="resend">Resend (42s)</div>
               {filled ? (
                 <button className="paste" onClick={handleClearInputs}>Clear</button>
               ) : (

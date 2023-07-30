@@ -2,7 +2,7 @@
 import '../../styles/index.scss';
 import { NoDetails } from '../ShowVirtualCardDetails/showVirtualCard/NoDetails/NoDetails';
 
-export const Success = () => {
+export const Success = ({ isActivatingCard }) => {
   return (
     <>
       <div className="container">
@@ -15,7 +15,9 @@ export const Success = () => {
         </div>
 
         <div className="code-section-active">
-          <p className="activated-title">Your card successfully activated!</p>
+          <p className="activated-title">
+            {isActivatingCard ? 'Your card successfully activated!' : 'Your new PIN successfully changed!'}
+          </p>
 
           <div className="tech-section">
             <a href="https://t.me/aleg_redcats">
