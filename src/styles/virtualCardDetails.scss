@@ -3,11 +3,8 @@
   bottom: 0;
   height: 50%;
   width: 100%;
-  backdrop-filter: blur(30px) ;
   background: #FFFFFF08;
-  box-shadow: 0px 1px 4px 0px #FFFFFF14 inset;
   box-shadow: 0px 0px 32px 0px #FFFFFF0A inset;
-  z-index: 0;
 }
 
 .background-circle {
@@ -30,7 +27,6 @@
   border: 1px solid #ffa500;
   transform-style: preserve-3d;
   transition: transform 1s ease;
-  z-index: 1;
 
   &:hover {
     transform: scale(1.05);
@@ -46,7 +42,6 @@
   font-family: 'Montserrat', sans-serif;
   font-weight: 500;
   line-height: 20px;
-  z-index: 1;
 
   &:hover {
     opacity: 0.8;
@@ -61,14 +56,12 @@
   margin: 60px 30px;
   display: flex;
   gap: 14px;
-  z-index: 2;
 }
 
 .right {
   position: absolute;
   top: 10px;
   right: 10px;
-  z-index: 2;
 }
 
 .business {
@@ -76,7 +69,6 @@
   margin-bottom: 25px;
   color: #FFFFFF;
   font-weight: 400;
-  z-index: 2;
 }
 
 .service {
@@ -87,14 +79,12 @@
   line-height: 8px;
   text-align: right;
   color: #d2cbcbee;
-  z-index: 2;
 }
 
 .black-line {
   height: 32px;
   width: 100%;
   background-color: black;
-  z-index: 2;
 }
 
 .flipped {

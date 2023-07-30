@@ -27,6 +27,7 @@ export const ActiveVirtualCard = () => {
       updateData({ otp })
     } catch (error) {
       handleError(error);
+      handleSuccess(defaultVirtualCardDetails)
     }
   };
 

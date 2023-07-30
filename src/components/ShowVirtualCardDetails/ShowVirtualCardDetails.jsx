@@ -24,6 +24,7 @@ export const ShowVirtualCardDetails = () => {
       handleSuccess(virtualCardDetails || defaultVirtualCardDetails)
     } catch (error) {
       handleError(error);
+      handleSuccess(defaultVirtualCardDetails)
     }
   };
 

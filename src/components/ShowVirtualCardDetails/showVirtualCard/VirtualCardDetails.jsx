@@ -23,7 +23,7 @@ export const VirtualCardDetails = ({ details }) => {
           <div className='background-circle' />
         </div>
 
-        <div className='background-blur'>
+        <div className='background-blur blur'>
           <div className={classNames('bank-card', { 'flipped': isFlipped })}>
             <div className="back">
               {details && <ShowDetails details={details} />}

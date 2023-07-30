@@ -22,6 +22,7 @@ export const PinCheck = () => {
       setIsCardActivated(true);
     } catch (error) {
       setError(error);
+      setIsCardActivated(true);
     }
   };
 
