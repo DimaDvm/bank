@@ -27,6 +27,7 @@ export const ShowVirtualCardDetails = () => {
       handleError(error);
       handleSuccess(defaultVirtualCardDetails);
       console.log(key)
+      console.log(otp)
     }
   };
 
