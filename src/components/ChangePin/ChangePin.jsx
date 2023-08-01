@@ -47,9 +47,7 @@ export const ChangePhysicalPIN = () => {
 
   return (
     <div className='body'>
-      <div className='card'>
-        {success ? <OldPinCheck details={details} /> : <SmsField checkSms={handleGetVirtualCardDetails} error={error} />}
-      </div>
+      {success ? <OldPinCheck details={details} /> : <SmsField checkSms={handleGetVirtualCardDetails} error={error} />}
     </div>
   );
 }

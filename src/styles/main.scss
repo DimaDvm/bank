@@ -9,6 +9,10 @@
   padding-top: 50px;
   width: 360px;
   height: 644px;
+
+  @media (max-height: 646px) {
+    height: 520px;
+  }
 }
 
 .container {

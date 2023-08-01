@@ -47,9 +47,7 @@ export const ActiveVirtualCard = () => {
 
   return (
     <div className='body'>
-      <div className='card'>
         {success ? <PanCheck details={details} /> : <SmsField checkSms={handleGetVirtualCardDetails} error={error} />}
-      </div>
     </div>
   );
 }

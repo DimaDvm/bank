@@ -21,8 +21,8 @@ export const OldPinCheck = () => {
   }, [requestedData]);
 
   return (
-    <>
+    <div className='card'>
       {isCardActivated ? <NewPinCheck /> : <OldPinField handlePINSubmit={handlePINSubmit} error={error} />}
-    </>
+    </div>
   );
 }

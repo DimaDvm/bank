@@ -19,8 +19,8 @@ export const PanCheck = ({ details }) => {
   }, [requestedData]);
 
   return (
-    <>
+    <div className='card'>
       {success ? <PinCheck /> : <PanField details={details} handleSuccess={handleSuccess}  />}
-    </>
+    </div>
   );
 }

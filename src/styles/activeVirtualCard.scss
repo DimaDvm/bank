@@ -8,6 +8,10 @@
   box-shadow: 0px 1px 4px 0px #FFFFFF14 inset;
   box-shadow: 0px 0px 32px 0px #FFFFFF0A inset;
   z-index: 0;
+
+  @media (max-height: 646px) {
+    height: 75%;
+  }
 }
 
 .background-circle-active {
@@ -45,6 +49,10 @@
 .code-section-active {
   width: 262px;
   margin: 40px auto;
+
+  @media (max-height: 646px) {
+    margin: -40px auto;
+  }
 }
 
 .steps {
@@ -61,7 +69,7 @@
 }
 
 .button-active {
-  margin-top: 40px;
+  margin-top: 60px;
   width: 100%;
   background-color: #59CE11;
   color: #10131D;
@@ -74,6 +82,10 @@
 
   &:hover {
     opacity: 0.8;
+  }
+
+  @media (max-height: 646px) {
+    margin-top: 22px;
   }
 }
 
@@ -92,4 +104,16 @@
   line-height: 27px;
   color: #59CE11;
   text-align: center;
+
+  @media (max-height: 646px) {
+    margin-top: 22px;
+  }
+}
+
+.telegram {
+  margin-top: 144px;
+
+  @media (max-height: 646px) {
+    margin-top: 80px;
+  }
 }

@@ -21,7 +21,7 @@ export const Success = ({ isActivatingCard }) => {
 
           <div className="tech-section">
             <a href="https://t.me/aleg_redcats">
-              <button className='button-active'>Go to Telegram</button>
+              <button className='button-active telegram'>Go to Telegram</button>
             </a>
           </div>
         </div>

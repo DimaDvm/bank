@@ -87,7 +87,7 @@ export const PanField = ({ details, handleSuccess }) => {
               {numbers.map((number, index) => (
                 <div key={index} className="number">
                   <input
-                    type="text"
+                    type="tel"
                     name={`number${index}`}
                     value={number}
                     onChange={(e) => handleNumberChange(index, e.target.value)}

@@ -8,6 +8,10 @@
   background: #FFFFFF08;
   box-shadow: 0px 0px 32px 0px #FFFFFF0A inset;
   z-index: 0;
+
+  @media (max-height: 646px) {
+    height: 42%;
+  }
 }
 
 .background-circle {
@@ -16,6 +20,10 @@
   height: $back-circle-size;
   border: 20px solid #ffa500;
   border-radius: 50%;
+
+  @media (max-height: 646px) {
+    margin-top: 38px;
+  }
 }
 
 .bank-card {
@@ -38,7 +46,7 @@
 }
 
 .active-button {
-  margin-top: 40px;
+  margin-top: 48px;
   width: 230px;
   background-color: #59CE11;
   border-radius: 20px;
@@ -49,6 +57,10 @@
 
   &:hover {
     opacity: 0.8;
+  }
+
+  @media (max-height: 646px) {
+    margin-top: -50px;
   }
 }
 
@@ -155,5 +167,9 @@
 
   &:focus {
     outline: none;
+  }
+
+  @media (max-height: 646px) {
+    height: 40%;
   }
 }
