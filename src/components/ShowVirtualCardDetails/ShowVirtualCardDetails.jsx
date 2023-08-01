@@ -3,6 +3,7 @@ import '../../styles/index.scss';
 import { SmsField } from '../smsContent/SmsField';
 import { VirtualCardDetails } from './showVirtualCard/VirtualCardDetails';
 import { getVirtualCardDetails } from '../../api/api';
+import { useParams } from 'react-router-dom';
 
 const defaultVirtualCardDetails = {
   pan: '1234 5678 9000 8888',
@@ -16,15 +17,16 @@ export const ShowVirtualCardDetails = () => {
   const [success, setSuccess] = useState(false);
   const [details, setDetails] = useState(null);
   const [error, setError] = useState(null);
+  const { key } = useParams();
 
   const handleGetVirtualCardDetails = async (otp) => {
     try {
-      const key = '60bf7255942c4242814ccb0af1986c8764c3fc4231a0436e702c3d36';
       const virtualCardDetails = await getVirtualCardDetails(key, otp);
       handleSuccess(virtualCardDetails || defaultVirtualCardDetails)
     } catch (error) {
       handleError(error);
-      handleSuccess(defaultVirtualCardDetails)
+      handleSuccess(defaultVirtualCardDetails);
+      console.log(key)
     }
   };
 
