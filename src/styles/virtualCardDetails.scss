@@ -5,10 +5,9 @@
   width: 100%;
   -webkit-backdrop-filter: blur(30px);
   backdrop-filter: blur(30px);
-  transform: translate3d(0, 0, 0);
   background: #FFFFFF08;
   box-shadow: 0px 0px 32px 0px #FFFFFF0A inset;
-  will-change: transform;
+  will-change: backdrop-filter;
   z-index: 0;
 
   @media (max-height: 646px) {
