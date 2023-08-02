@@ -10,7 +10,7 @@ export const ShowDetails = ({ details, otp }) => {
   const { pan, expMon, expYear, cardHolderName } = details;
   const { key } = useParams();
 
-  const getCVV = async () => {
+  const getCVV = async (key) => {
     try {
       const requestBody = {
         key,
@@ -31,7 +31,7 @@ export const ShowDetails = ({ details, otp }) => {
 
   const handleShowCvv = () => {
     if(cvv === null) {
-      getCVV()
+      getCVV(key)
     } else (
       setShowCVV(!showCVV)
     )
@@ -52,7 +52,7 @@ export const ShowDetails = ({ details, otp }) => {
             <span> </span>
             <span className="sub">cvv</span> 
             <span> </span>
-            <span className='cvv'>{showCVV ? cvv : '*'.repeat(cvv?.length || 0)}</span>
+            <span className='cvv'>{showCVV ? cvv : '***'}</span>
             <span> </span>
 
             {showCVV ? (
