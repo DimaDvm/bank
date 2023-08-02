@@ -3,8 +3,9 @@ import React, { useEffect, useState, useRef } from 'react';
 import '../../styles/index.scss';
 import classNames from 'classnames';
 import logo from '../../img/Logo.svg';
+import { Rings } from 'react-loader-spinner'
 
-export const SmsField = ({ checkSms, error }) => {
+export const SmsField = ({ checkSms, error, isLoading }) => {
   const [numbers, setNumbers] = useState(['', '', '', '']);
   const [filled, setFilled] = useState(false);
 
@@ -42,7 +43,7 @@ export const SmsField = ({ checkSms, error }) => {
       const newNumbers = formattedText.padEnd(4, '').split('').slice(0, 4);
       const updatedNumbers = numbers.map((num, index) => newNumbers[index] || num);
       setNumbers(updatedNumbers);
-  
+
       const nextEmptyIndex = updatedNumbers.findIndex(num => num === '');
       if (nextEmptyIndex >= 0) {
         inputRefs.current[nextEmptyIndex].current.focus();
@@ -63,52 +64,56 @@ export const SmsField = ({ checkSms, error }) => {
 
   return (
     <div className='card'>
-      <div className="container">
-        <img src={logo} alt='Logo' />
-      </div>
-
-      <div className="container">
-        <div className={classNames('circle', { 'red': error })} />
-      </div>
-
-      <div className="blur">
-        <div className="code-section">
-          <div className="title">Please enter code from SMS</div>
-
-          <div className="error-container">
-            {error && <div className="error">{error}</div>}
+      {isLoading ? <Rings /> : (
+        <>
+          <div className="container">
+            <img src={logo} alt='Logo' />
           </div>
 
-          <div className="tech-section">
-            <div className="numbers-box">
-              {numbers.map((number, index) => (
-                <div key={index} className="number">
-                  <input
-                    type="tel"
-                    name={`number${index}`}
-                    value={number}
-                    onChange={(e) => handleNumberChange(index, e.target.value)}
-                    maxLength="1"
-                    className='number-input'
-                    autoComplete="off"
-                    ref={inputRefs.current[index]}
-                  />
+          <div className="container">
+            <div className={classNames('circle', { 'red': error })} />
+          </div>
+
+          <div className="blur">
+            <div className="code-section">
+              <div className="title">Please enter code from SMS</div>
+
+              <div className="error-container">
+                {error && <div className="error">{error}</div>}
+              </div>
+
+              <div className="tech-section">
+                <div className="numbers-box">
+                  {numbers.map((number, index) => (
+                    <div key={index} className="number">
+                      <input
+                        type="tel"
+                        name={`number${index}`}
+                        value={number}
+                        onChange={(e) => handleNumberChange(index, e.target.value)}
+                        maxLength="1"
+                        className='number-input'
+                        autoComplete="off"
+                        ref={inputRefs.current[index]}
+                      />
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
 
-            <div className="sms-control">
-              {filled ? (
-                <button className="paste" onClick={handleClearInputs}>Clear</button>
-              ) : (
-                <button className="paste" onClick={handleFillInputs}>Paste Code</button>
-              )}
-            </div>
+                <div className="sms-control">
+                  {filled ? (
+                    <button className="paste" onClick={handleClearInputs}>Clear</button>
+                  ) : (
+                    <button className="paste" onClick={handleFillInputs}>Paste Code</button>
+                  )}
+                </div>
 
-            <button className='button' onClick={handleSubmit}>Confirm</button>
+                <button className='button' onClick={handleSubmit}>Confirm</button>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
+        </>
+      )}
     </div>
   );
 }

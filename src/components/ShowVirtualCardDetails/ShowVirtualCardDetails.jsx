@@ -4,6 +4,7 @@ import { SmsField } from '../smsContent/SmsField';
 import { VirtualCardDetails } from './showVirtualCard/VirtualCardDetails';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import { Rings } from  'react-loader-spinner'
 
 export const ShowVirtualCardDetails = () => {
   const [success, setSuccess] = useState(false);
@@ -11,6 +12,9 @@ export const ShowVirtualCardDetails = () => {
   const [error, setError] = useState(null);
   const [otp, setOtp] = useState(null);
   const { key } = useParams();
+  const [isLoading, setIsLoading] = useState('');
+
+  const shownPage
 
   const fetchCardDetails = async (otp) => {
     try {
@@ -18,8 +22,8 @@ export const ShowVirtualCardDetails = () => {
         key,
         otp,
       });
+      setIsLoading(true)
       handleSuccess(response.data);
-      console.log(response.data)
       setOtp(otp);
     } catch (error) {
       if (error.response?.status === 401) {
@@ -38,12 +42,16 @@ export const ShowVirtualCardDetails = () => {
   const handleSuccess = (response) => {
     setSuccess(true);
     setDetails(response)
-    console.log(123)
+    setIsLoading(false);
   }
 
   return (
     <div className='body'>
-      {success ? <VirtualCardDetails details={details} otp={otp} /> : <SmsField checkSms={fetchCardDetails} error={error} />}
+      {
+        success 
+          ? <VirtualCardDetails details={details} otp={otp} /> 
+          : <SmsField checkSms={fetchCardDetails} error={error} isLoading={isLoading} />
+      }
     </div>
   );
 }
