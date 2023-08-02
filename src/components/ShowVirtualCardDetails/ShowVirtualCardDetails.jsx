@@ -19,6 +19,7 @@ export const ShowVirtualCardDetails = () => {
         otp,
       });
       handleSuccess(response.data);
+      console.log(response.data)
       setOtp(otp);
     } catch (error) {
       if (error.response?.status === 401) {
@@ -37,6 +38,7 @@ export const ShowVirtualCardDetails = () => {
   const handleSuccess = (response) => {
     setSuccess(true);
     setDetails(response)
+    console.log(123)
   }
 
   return (
