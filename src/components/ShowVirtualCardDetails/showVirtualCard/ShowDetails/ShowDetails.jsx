@@ -3,15 +3,22 @@ import { useState } from 'react';
 import '../../../../styles/index.scss';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import { LineWave } from 'react-loader-spinner'
 
 export const ShowDetails = ({ details, otp }) => {
   const [showCVV, setShowCVV] = useState(false);
   const [cvv, setCvv] = useState(null);
   const { pan, expMon, expYear, cardHolderName } = details;
   const { key } = useParams();
+  const [isCVVLoading, setIsCVVLoading] = useState(false);
+
+
+  const visibleCVV = showCVV ? cvv : '***';
 
   const getCVV = async (key) => {
     try {
+      setIsCVVLoading(true)
+
       const requestBody = {
         key,
         otp,
@@ -27,6 +34,8 @@ export const ShowDetails = ({ details, otp }) => {
     } catch (err) {
       console.log('Failed to get CVV. Please try again later.');
     }
+
+    setIsCVVLoading(false)
   };
 
   const handleShowCvv = () => {
@@ -52,7 +61,7 @@ export const ShowDetails = ({ details, otp }) => {
             <span> </span>
             <span className="sub">cvv</span> 
             <span> </span>
-            <span className='cvv'>{showCVV ? cvv : '***'}</span>
+            <span className='cvv'>{isCVVLoading ? <LineWave /> : visibleCVV}</span>
             <span> </span>
 
             {showCVV ? (
