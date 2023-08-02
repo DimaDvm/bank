@@ -61,9 +61,11 @@ export const ShowDetails = ({ details, otp }) => {
             <span> </span>
             <span className="sub">cvv</span> 
             <span> </span>
-            <div className="cvv-container">
-            <span className='cvv'>{isCVVLoading ? <LineWave /> : visibleCVV}</span>
-          </div>
+            {
+              isCVVLoading 
+                ? <LineWave height={19} width={19} />
+                : <span className='cvv'>{visibleCVV}</span>
+            }
             <span> </span>
 
             {showCVV ? (

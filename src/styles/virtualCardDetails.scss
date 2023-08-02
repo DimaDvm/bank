@@ -149,24 +149,12 @@
   text-transform: none;
 }
 
-.cvv-container {
-  display: inline-block;
-  position: relative;
-}
-
 .cvv {
   background-color: #FFFFFF47;
   border-radius: 2px;
   padding: 0 4px;
   letter-spacing: 0.2em;
   font-size: 14px;
-}
-
-.cvv-container > .LineWave {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
 }
 
 .show-button {
