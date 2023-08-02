@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import logo from '../../img/Logo.svg';
 import { Rings } from 'react-loader-spinner'
 
-export const SmsField = ({ checkSms, error, isLoading }) => {
+export const SmsField = ({ checkSms, error }) => {
   const [numbers, setNumbers] = useState(['', '', '', '']);
   const [filled, setFilled] = useState(false);
 
@@ -71,14 +71,11 @@ export const SmsField = ({ checkSms, error, isLoading }) => {
       <div className="container">
         <div className={classNames('circle', { 'red': error })} />
       </div>
-
-      {isLoading && (
         <div className="loader-overlay">
           <div className="loader">
             <Rings height={150} width={150} />
           </div>
         </div>
-      )}
 
       <div className="blur">
         <div className="code-section">
