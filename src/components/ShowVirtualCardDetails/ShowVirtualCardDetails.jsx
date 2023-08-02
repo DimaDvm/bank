@@ -33,6 +33,8 @@ export const ShowVirtualCardDetails = () => {
           handleError('Wrong OTP code. Please try another one!');
         }
       }
+
+      setIsLoading(false);
     };
 
   const handleError = (error) => {
@@ -42,7 +44,6 @@ export const ShowVirtualCardDetails = () => {
 
   const handleSuccess = (otp) => {
     fetchCardDetails(otp);
-    setIsLoading(false);
   }
 
   return (
