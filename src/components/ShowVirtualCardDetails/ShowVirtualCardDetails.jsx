@@ -25,7 +25,6 @@ export const ShowVirtualCardDetails = () => {
       setDetails(response.data);
       setSuccess(true);
       setOtp(otp);
-      setIsLoading(false);
     } catch (error) {
       if (error.response?.status === 401) {
         setError('Access blocked');
