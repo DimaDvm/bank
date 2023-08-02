@@ -4,7 +4,6 @@ import { SmsField } from '../smsContent/SmsField';
 import { VirtualCardDetails } from './showVirtualCard/VirtualCardDetails';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import { Rings } from  'react-loader-spinner'
 
 export const ShowVirtualCardDetails = () => {
   const [success, setSuccess] = useState(false);
@@ -13,8 +12,6 @@ export const ShowVirtualCardDetails = () => {
   const [otp, setOtp] = useState(null);
   const { key } = useParams();
   const [isLoading, setIsLoading] = useState('');
-
-  const shownPage
 
   const fetchCardDetails = async (otp) => {
     try {
