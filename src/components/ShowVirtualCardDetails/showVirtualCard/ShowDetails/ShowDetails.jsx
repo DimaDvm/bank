@@ -32,9 +32,9 @@ export const ShowDetails = ({ details, otp }) => {
   const handleShowCvv = () => {
     if(cvv === null) {
       getCVV(key)
-    } else (
-      setShowCVV(!showCVV)
-    )
+    }
+
+    setShowCVV(!showCVV)
   }
 
   return (

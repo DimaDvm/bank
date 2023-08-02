@@ -19,29 +19,28 @@ export const ShowVirtualCardDetails = () => {
         key,
         otp,
       });
-      setIsLoading(true)
       console.log(123)
-      handleSuccess(response.data);
+      setDetails(response.data);
+      setSuccess(true);
       setOtp(otp);
     } catch (error) {
       if (error.response?.status === 401) {
-        setError('Access blocked');
+        handleError('Access blocked');
       } else {
-          handleError();
+          handleError('Wrong OTP code. Please try another one!');
         }
       }
     };
 
-  const handleError = () => {
-    setError('Wrong OTP code. Please try another one!');
+  const handleError = (error) => {
+    setError(error);
     setTimeout(() => setError(null), 2000);
   }
 
-  const handleSuccess = (response) => {
-    setSuccess(true);
-    setDetails(response)
+  const handleSuccess = (otp) => {
+    setIsLoading(true);
+    fetchCardDetails(otp);
     setIsLoading(false);
-    console.log(321)
   }
 
   return (
@@ -49,7 +48,7 @@ export const ShowVirtualCardDetails = () => {
       {
         success 
           ? <VirtualCardDetails details={details} otp={otp} /> 
-          : <SmsField checkSms={fetchCardDetails} error={error} isLoading={isLoading} />
+          : <SmsField checkSms={handleSuccess} error={error} isLoading={isLoading} />
       }
     </div>
   );
