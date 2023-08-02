@@ -2,34 +2,32 @@ import { useState } from 'react';
 import '../../styles/index.scss';
 import { SmsField } from '../smsContent/SmsField';
 import { VirtualCardDetails } from './showVirtualCard/VirtualCardDetails';
-import { getVirtualCardDetails } from '../../api/api';
 import { useParams } from 'react-router-dom';
-
-const defaultVirtualCardDetails = {
-  pan: '1234 5678 9000 8888',
-  expMon: '12',
-  expYear: '29',
-  cardHolderName: 'Johny Cash',
-  cvv: '111'
-}
+import axios from 'axios';
 
 export const ShowVirtualCardDetails = () => {
   const [success, setSuccess] = useState(false);
   const [details, setDetails] = useState(null);
   const [error, setError] = useState(null);
+  const [otp, setOtp] = useState(null);
   const { key } = useParams();
 
-  const handleGetVirtualCardDetails = async (otp) => {
+  const fetchCardDetails = async (otp) => {
     try {
-      const virtualCardDetails = await getVirtualCardDetails(key, otp);
-      handleSuccess(virtualCardDetails || defaultVirtualCardDetails)
+      const response = await axios.post('https://dev2.fin.forkflow.com/fe/virtual-card/details', {
+        key,
+        otp,
+      });
+      handleSuccess(response.data);
+      setOtp(otp);
     } catch (error) {
-      handleError(error);
-      handleSuccess(defaultVirtualCardDetails);
-      console.log(key)
-      console.log(otp)
-    }
-  };
+      if (error.response?.status === 401) {
+        setError('Access blocked');
+      } else {
+          handleError();
+        }
+      }
+    };
 
   const handleError = () => {
     setError('Wrong OTP code. Please try another one!');
@@ -43,7 +41,7 @@ export const ShowVirtualCardDetails = () => {
 
   return (
     <div className='body'>
-      {success ? <VirtualCardDetails details={details} /> : <SmsField checkSms={handleGetVirtualCardDetails} error={error} />}
+      {success ? <VirtualCardDetails details={details} otp={otp} /> : <SmsField checkSms={fetchCardDetails} error={error} />}
     </div>
   );
 }

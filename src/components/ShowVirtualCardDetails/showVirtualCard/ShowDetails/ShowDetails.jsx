@@ -1,13 +1,40 @@
 /* eslint-disable react/prop-types */
 import { useState } from 'react';
 import '../../../../styles/index.scss';
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
-export const ShowDetails = ({ details }) => {
+export const ShowDetails = ({ details, otp }) => {
   const [showCVV, setShowCVV] = useState(false);
-  const { pan, expMon, expYear, cardHolderName, cvv } = details;
+  const [cvv, setCvv] = useState(null);
+  const { pan, expMon, expYear, cardHolderName } = details;
+  const { key } = useParams();
+
+  const getCVV = async () => {
+    try {
+      const requestBody = {
+        key,
+        otp,
+      };
+
+      const response = await axios.post('https://dev2.fin.forkflow.com/fe/virtual-card/cvv', requestBody, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      setCvv(response.data.cvv);
+    } catch (err) {
+      console.log('Failed to get CVV. Please try again later.');
+    }
+  };
 
   const handleShowCvv = () => {
-    setShowCVV(!showCVV);
+    if(cvv === null) {
+      getCVV()
+    } else (
+      setShowCVV(!showCVV)
+    )
   }
 
   return (
