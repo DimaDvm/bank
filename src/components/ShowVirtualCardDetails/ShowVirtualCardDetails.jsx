@@ -11,7 +11,7 @@ export const ShowVirtualCardDetails = () => {
   const [error, setError] = useState(null);
   const [otp, setOtp] = useState(null);
   const { key } = useParams();
-  const [isLoading, setIsLoading] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const fetchCardDetails = async (otp) => {
     try {
