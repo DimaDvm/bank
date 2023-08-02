@@ -64,7 +64,7 @@ export const ShowDetails = ({ details, otp }) => {
           <div className="cvv-container">
             {isCVVLoading ? (
               <div className="cvv-loader">
-                <LineWave height='14' color='#ffa500' />
+                <LineWave height='100%' color='#ffa500' />
               </div>
             ) : (
               <span className="cvv">{visibleCVV}</span>
