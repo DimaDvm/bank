@@ -15,17 +15,20 @@ export const ShowVirtualCardDetails = () => {
 
   const fetchCardDetails = async (otp) => {
     try {
+      setIsLoading(true);
+
       const response = await axios.post('https://dev2.fin.forkflow.com/fe/virtual-card/details', {
         key,
         otp,
       });
-      setIsLoading(true);
+
       setDetails(response.data);
       setSuccess(true);
       setOtp(otp);
+      setIsLoading(false);
     } catch (error) {
       if (error.response?.status === 401) {
-        handleError('Access blocked');
+        setError('Access blocked');
       } else {
           handleError('Wrong OTP code. Please try another one!');
         }
