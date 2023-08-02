@@ -74,7 +74,7 @@ export const SmsField = ({ checkSms, error, isLoading }) => {
       {isLoading && (
         <div className="loader-overlay">
           <div className="loader">
-            <Rings height={150} width={150} color={'orange'} />
+            <Rings height={150} width={150} color='#ffa500' />
           </div>
         </div>
       )}
