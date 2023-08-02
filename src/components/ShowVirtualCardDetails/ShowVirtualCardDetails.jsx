@@ -19,7 +19,7 @@ export const ShowVirtualCardDetails = () => {
         key,
         otp,
       });
-      console.log(123)
+      setIsLoading(true);
       setDetails(response.data);
       setSuccess(true);
       setOtp(otp);
@@ -38,7 +38,6 @@ export const ShowVirtualCardDetails = () => {
   }
 
   const handleSuccess = (otp) => {
-    setIsLoading(true);
     fetchCardDetails(otp);
     setIsLoading(false);
   }
