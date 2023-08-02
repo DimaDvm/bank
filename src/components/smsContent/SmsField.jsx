@@ -31,7 +31,6 @@ export const SmsField = ({ checkSms, error, isLoading }) => {
 
     const otp = numbers.join('');
 
-    setNumbers(['', '', '', '']);
     checkSms(otp);
   };
 
