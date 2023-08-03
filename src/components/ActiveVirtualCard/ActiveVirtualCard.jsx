@@ -30,6 +30,7 @@ export const ActiveVirtualCard = () => {
       } else {
         handleError('Wrong OTP code. Please try another one!');
       }
+      console.log(error)
     }
 
     setIsLoading(false);
