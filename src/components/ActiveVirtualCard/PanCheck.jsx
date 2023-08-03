@@ -18,18 +18,18 @@ export const PanCheck = () => {
       setIsLoading(true);
       updateData({ PAN: PAN })
 
-      const response = await activatePhysicalCard(requestedData);
+      const response = await activatePhysicalCard({ ...requestedData, PAN: PAN });
 
       if (response.status === 200) {
         setSuccess(true);
-      } else if (error.response?.status === 401) {
+      }
+
+    } catch (error) {
+      if (error.response?.status === 401) {
         setError('Access blocked');
       } else {
         handleError('Wrong card! Please try another one!');
       }
-
-    } catch (error) {
-      setError('Something went wrond!');
     }
 
     setIsLoading(false);

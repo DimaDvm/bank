@@ -17,18 +17,18 @@ export const PinCheck = () => {
       setIsLoading(true);
       updateData({ PIN: PIN })
 
-      const response = await activatePhysicalCard(requestedData);
+      const response = await activatePhysicalCard({ ...requestedData, PIN: PIN });
 
       if (response.status === 200) {
         setSuccess(true);
-      } else if (error.response?.status === 401) {
-        setError('Access blocked');
-      } else {
-        handleError('Wrong card! Please try another one!');
       }
 
     } catch (error) {
-      setError('Something went wrond!');
+      if (error.response?.status === 401) {
+        setError('Access blocked');
+      } else {
+        handleError('Something went wrong!');
+      }
     }
 
     setIsLoading(false);

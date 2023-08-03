@@ -17,7 +17,6 @@ export const ActiveVirtualCard = () => {
     try {
       setIsLoading(true);
       updateData({ key: key, otp: otp })
-      console.log({ key, otp })
 
       const response = await activatePhysicalCard({ key, otp });
 
@@ -29,7 +28,7 @@ export const ActiveVirtualCard = () => {
       if (error.response?.status === 401) {
         setError('Access blocked');
       } else {
-        handleError('Wrong card! Please try another one!');
+        handleError('Wrong OTP code. Please try another one!');
       }
     }
 
