@@ -4,7 +4,6 @@ import '../../../styles/index.scss';
 import { Success } from '../../Success/Success';
 import { useData } from '../../DataContext/Data';
 import { NewPinField } from './NewPinField';
-import { changePINApi } from '../../../api/api';
 
 export const NewPinCheck = () => {
   const [isCardActivated, setIsCardActivated] = useState(false);
@@ -22,15 +21,6 @@ export const NewPinCheck = () => {
     setError(true);
     setTimeout(() => setError(null), 2000);
   }
-
-  const handleChangePIN = async (data) => {
-    try {
-      await changePINApi(data);
-      setIsCardActivated(true);
-    } catch (error) {
-      handleError();
-    }
-  };
 
   return (
     <>

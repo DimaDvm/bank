@@ -18,12 +18,6 @@ export const Success = ({ isActivatingCard }) => {
           <p className="activated-title">
             {isActivatingCard ? 'Your card successfully activated!' : 'Your new PIN successfully changed!'}
           </p>
-
-          <div className="tech-section">
-            <a href="https://t.me/aleg_redcats">
-              <button className='button-active telegram'>Go to Telegram</button>
-            </a>
-          </div>
         </div>
       </div>
     </>

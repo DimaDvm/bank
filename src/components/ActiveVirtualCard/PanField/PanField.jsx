@@ -2,11 +2,10 @@
 import React, { useState, useRef } from 'react';
 import classNames from 'classnames';
 import '../../../styles/index.scss';
+import { Rings } from 'react-loader-spinner';
 
-export const PanField = ({ details, handleSuccess }) => {
-  const { pan, expMon, expYear, cardHolderName } = details;
+export const PanField = ({ handleSuccess, error, isLoading }) => {
   const [numbers, setNumbers] = useState(['', '', '', '']);
-  const [error, setError] = useState('');
 
 
   const inputRefs = useRef(numbers.map(() => React.createRef()));
@@ -25,30 +24,19 @@ export const PanField = ({ details, handleSuccess }) => {
     }
   };
 
-  const handleError = () => {
-    setError('Wrong card! Please try another one!');
-    setTimeout(() => setError(null), 2000);
-  }
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    if (pan === pan.slice(0, 15) + numbers.join('')) {
-      const panData = numbers.join('');
-
-      handleSuccess(panData)
-    } else {
-      handleError()
-    }
-
-    setNumbers(['', '', '', '']);
-  };
-
   return (
     <>
       <div className="container">
         <div className={classNames('background-circle-active', { 'red': error })} />
       </div>
+
+      {isLoading && (
+        <div className="loader-overlay">
+          <div className="loader">
+            <Rings height='150' width='150' color="#ffa500" />
+          </div>
+        </div>
+      )}
 
       <div className='background-blur-active'>
         <div className='bank-card-active'>
@@ -58,18 +46,9 @@ export const PanField = ({ details, handleSuccess }) => {
             </div>
 
             <div className="personal-data">
-              <p>{cardHolderName}</p>
-              <p>{pan.slice(0, 15)} <span className='pan'>{numbers.join('')}</span></p>
-              <p>
-                <span className="sub">exp</span>
-                <span> {expMon}/{expYear}</span>
-                <span> </span>
-                <span className="sub">cvv</span>
-                <span> </span>
-                <span className='cvv'>000</span>
-              </p>
+              <p>xxxx xxxx xxxx <span className='pan'>{numbers.join('')}</span></p>
 
-              <div className="sub dezined">This card is issued by Dzing Finance Ltd. pursuant to license by Mastercard International</div>
+              <div className="sub-active">This card is issued by Dzing Finance Ltd. pursuant to license by Mastercard International</div>
             </div>
           </div>
         </div>
@@ -100,7 +79,7 @@ export const PanField = ({ details, handleSuccess }) => {
               ))}
             </div>
 
-            <button className='button-active' onClick={handleSubmit}>Active card</button>
+            <button className='button-active' onClick={handleSuccess}>Active card</button>
           </div>
         </div>
       </div>

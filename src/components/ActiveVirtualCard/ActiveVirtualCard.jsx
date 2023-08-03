@@ -1,53 +1,53 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import '../../styles/index.scss';
 import { SmsField } from '../smsContent/SmsField';
-import { getVirtualCardDetails } from '../../api/api';
+import { activatePhysicalCard } from '../../api/api';
 import { PanCheck } from './PanCheck';
 import { useData } from '../DataContext/Data';
-
-const defaultVirtualCardDetails = {
-  pan: '1234 5678 9000 8888',
-  expMon: '12',
-  expYear: '29',
-  cardHolderName: 'Johny Cash',
-  cvv: '111'
-}
+import { useParams } from 'react-router-dom';
 
 export const ActiveVirtualCard = () => {
   const [success, setSuccess] = useState(false);
-  const [details, setDetails] = useState(null);
   const [error, setError] = useState(null);
-  const { requestedData, updateData } = useData();
+  const { updateData } = useData();
+  const { key } = useParams();
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleGetVirtualCardDetails = async (otp) => {
+  const handleActivatePhysicalCard = async (otp) => {
     try {
-      const key = '60bf7255942c4242814ccb0af1986c8764c3fc4231a0436e702c3d36';
-      const virtualCardDetails = await getVirtualCardDetails(key, otp);
-      handleSuccess(virtualCardDetails  || defaultVirtualCardDetails)
-      updateData({ otp })
+      setIsLoading(true);
+      updateData({ key: key, otp: otp })
+      console.log({ key, otp })
+
+      const response = await activatePhysicalCard({ key, otp });
+
+      if (response.status === 200) {
+        setSuccess(true);
+      }
+
     } catch (error) {
-      handleError(error);
-      handleSuccess(defaultVirtualCardDetails)
+      if (error.response?.status === 401) {
+        setError('Access blocked');
+      } else {
+        handleError('Wrong card! Please try another one!');
+      }
     }
+
+    setIsLoading(false);
   };
 
-  const handleError = () => {
-    setError('Wrong OTP code. Please try another one!');
+  const handleError = (error) => {
+    setError(error);
     setTimeout(() => setError(null), 2000);
   }
 
-  const handleSuccess = (response) => {
-    setSuccess(true);
-    setDetails(response)
-  }
-
-  useEffect(() => {
-    console.log(requestedData);
-  }, [requestedData]);
-
   return (
     <div className='body'>
-        {success ? <PanCheck details={details} /> : <SmsField checkSms={handleGetVirtualCardDetails} error={error} />}
+      {
+        success
+          ? <PanCheck />
+          : <SmsField checkSms={handleActivatePhysicalCard} error={error} isLoading={isLoading} />
+      }
     </div>
   );
 }

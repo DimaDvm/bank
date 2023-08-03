@@ -7,35 +7,48 @@ import { useData } from '../DataContext/Data';
 import { activatePhysicalCard } from '../../api/api';
 
 export const PinCheck = () => {
-  const [isCardActivated, setIsCardActivated] = useState(false);
+  const [success, setSuccess] = useState(false);
   const { requestedData, updateData } = useData();
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+
+  const handleActivatePhysicalCard = async (PIN) => {
+    try {
+      setIsLoading(true);
+      updateData({ PIN: PIN })
+
+      const response = await activatePhysicalCard(requestedData);
+
+      if (response.status === 200) {
+        setSuccess(true);
+      } else if (error.response?.status === 401) {
+        setError('Access blocked');
+      } else {
+        handleError('Wrong card! Please try another one!');
+      }
+
+    } catch (error) {
+      setError('Something went wrond!');
+    }
+
+    setIsLoading(false);
+  };
+
+    const handleError = (error) => {
+      setError(error);
+      setTimeout(() => setError(null), 2000);
+    }
 
   const isActivatingCard = true;
 
-  const handlePINSubmit = (PIN) => {
-    updateData({ PIN: PIN });
-    handleActivateCard(requestedData)
-  };
-
-  const handleError = () => {
-    setError(true);
-    setTimeout(() => setError(null), 2000);
-  }
-
-  const handleActivateCard = async (data) => {
-    try {
-      await activatePhysicalCard(data);
-      setIsCardActivated(true);
-    } catch (error) {
-      handleError();
-      setIsCardActivated(true);
-    }
-  };
 
   return (
     <>
-      {isCardActivated ? <Success isActivatingCard={isActivatingCard} /> : <PinField handlePINSubmit={handlePINSubmit} error={error} />}
+      {
+        success 
+          ? <Success isActivatingCard={isActivatingCard} /> 
+          : <PinField handlePINSubmit={handleActivatePhysicalCard} error={error} isLoading={isLoading} />
+      }
     </>
   );
 }

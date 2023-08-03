@@ -2,50 +2,19 @@ import axios from 'axios';
 
 const BASE_URL = 'https://dev2.fin.forkflow.com/fe';
 
-export const getVirtualCardDetails = async (key, otp) => {
+export const activatePhysicalCard = async (requestData) => {
   try {
-    const requestBody = {
-      key,
-      otp,
-    };
-
-    const response = await axios.post(`${BASE_URL}/virtual-card/details`, requestBody, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-
-    return response.data;
+    const response = await axios.post(`${BASE_URL}/physical-card/activate`, requestData);
+    return response;
   } catch (error) {
     throw error.response.data;
   }
 };
 
-export const activatePhysicalCard = async (requestBody) => {
-  try {
-    const response = await axios.post(`${BASE_URL}/physical-card/activate`, requestBody, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-
-    return response.data;
-  } catch (error) {
-    throw error.response.data;
-  }
-};
-
-export const changePINApi = async (key, otp, oldPIN, PIN) => {
-  const requestData = {
-    key: key,
-    otp: otp,
-    oldPIN: oldPIN,
-    PIN: PIN,
-  };
-
+export const changePhysicalCardPin = async (requestData) => {
   try {
     const response = await axios.post(`${BASE_URL}/physical-card/change-pin`, requestData);
-    return response.data;
+    return response;
   } catch (error) {
     throw error.response.data;
   }

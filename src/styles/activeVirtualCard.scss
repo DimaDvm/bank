@@ -97,6 +97,15 @@
   color: #F59E00;
 }
 
+.sub-active {
+  margin-top: 46px;
+  font-size: 6px;
+  font-weight: 400;
+  line-height: 8px;
+  color: #d2cbcbee;
+  text-transform: none;
+}
+
 .activated-title {
   font-family: 'Montserrat', sans-serif;
   font-size: 18px;
@@ -107,13 +116,5 @@
 
   @media (max-height: 646px) {
     margin-top: 22px;
-  }
-}
-
-.telegram {
-  margin-top: 144px;
-
-  @media (max-height: 646px) {
-    margin-top: 80px;
   }
 }
