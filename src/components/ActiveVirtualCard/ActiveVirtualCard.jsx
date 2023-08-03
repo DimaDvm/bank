@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import '../../styles/index.scss';
 import { SmsField } from '../smsContent/SmsField';
-import { activatePhysicalCard } from '../../api/api';
 import { PanCheck } from './PanCheck';
 import { useData } from '../DataContext/Data';
 import { useParams } from 'react-router-dom';
+import axios from 'axios';
 
 export const ActiveVirtualCard = () => {
   const [success, setSuccess] = useState(false);
@@ -13,28 +13,30 @@ export const ActiveVirtualCard = () => {
   const { key } = useParams();
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleActivatePhysicalCard = async (otp) => {
+  const activateCard = async (otp) => {
     try {
-      setIsLoading(true);
-      updateData({ key: key, otp: otp })
+      setIsLoading(true)
+      const request = {
+        key: key,
+        otp: otp,
+      }
 
-      const response = await activatePhysicalCard({ key, otp });
+      updateData(...request)
+
+      const response = await axios.post('https://fe.fin.forkflow.com/fe/physical-card/activate', request);
 
       if (response.status === 200) {
         setSuccess(true);
       }
-
     } catch (error) {
-      if (error.response?.status === 401) {
-        setError('Access blocked');
-      } else {
+      if (error.response.status === 400) {
         handleError('Wrong OTP code. Please try another one!');
+      } else {
+        setError('Access blocked')
       }
-      console.log(error)
     }
-
-    setIsLoading(false);
   };
+
 
   const handleError = (error) => {
     setError(error);
@@ -46,7 +48,7 @@ export const ActiveVirtualCard = () => {
       {
         success
           ? <PanCheck />
-          : <SmsField checkSms={handleActivatePhysicalCard} error={error} isLoading={isLoading} />
+          : <SmsField checkSms={activateCard} error={error} isLoading={isLoading} />
       }
     </div>
   );
