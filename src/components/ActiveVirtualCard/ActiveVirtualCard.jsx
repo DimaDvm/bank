@@ -13,28 +13,33 @@ export const ActiveVirtualCard = () => {
   const { key } = useParams();
   const [isLoading, setIsLoading] = useState(false);
 
-  const activateCard = async (otp) => {
+  const activatePhysicalCard = async (otp) => {
     try {
-      setIsLoading(true)
+      setIsLoading(true);
+  
       const request = {
-        key: key,
-        otp: otp,
-      }
+        key,
+        otp,
+      };
 
       updateData(...request)
-
-      const response = await axios.post('https://fe.fin.forkflow.com/fe/physical-card/activate', request);
-
+  
+      const response = await axios.post('https://dev2.fin.forkflow.com/fe/physical-card/activate', request);
+  
       if (response.status === 200) {
         setSuccess(true);
       }
     } catch (error) {
-      if (error.response.status === 400) {
-        handleError('Wrong OTP code. Please try another one!');
+      if (error.response?.status === 401) {
+        setError('Access blocked');
+      } else if (error.response?.status === 400) {
+        handleError('Wrong OTP code or invalid PAN. Please try again!');
       } else {
-        setError('Access blocked')
+        setError('An unexpected error occurred');
       }
     }
+  
+    setIsLoading(false);
   };
 
 
@@ -48,7 +53,7 @@ export const ActiveVirtualCard = () => {
       {
         success
           ? <PanCheck />
-          : <SmsField checkSms={activateCard} error={error} isLoading={isLoading} />
+          : <SmsField checkSms={activatePhysicalCard} error={error} isLoading={isLoading} />
       }
     </div>
   );
