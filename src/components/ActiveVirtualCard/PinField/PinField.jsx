@@ -48,7 +48,7 @@ export const PinField = ({ handlePINSubmit, error, isLoading }) => {
           <div className="title title-active">Please enter last 4 digits of PIN</div>
 
           <div className="error-container">
-            {error && <div className="error">Some error state!</div>}
+            {error && <div className="error">{error}</div>}
           </div>
 
           <div className="tech-section">
