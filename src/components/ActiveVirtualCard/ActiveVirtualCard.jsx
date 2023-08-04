@@ -41,7 +41,7 @@ export const ActiveVirtualCard = () => {
         console.log(5)
       } else {
         setError('An unexpected error occurred');
-        console.log(6, error.response?.status)
+        console.log(6, error)
       }
     }
   
