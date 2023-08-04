@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import classNames from 'classnames';
 import '../../../styles/index.scss';
 import { NoDetails } from '../../ShowVirtualCardDetails/showVirtualCard/NoDetails/NoDetails';
@@ -32,6 +32,21 @@ export const OldPinField = ({ handlePINSubmit, error, isLoading }) => {
     handlePINSubmit(userPIN);
     setNumbers(['', '', '', '']);
   };
+
+  useEffect(() => {
+    const handleDocumentKeyDown = (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        handleSubmit(e);
+      }
+    };
+  
+    document.addEventListener('keydown', handleDocumentKeyDown);
+  
+    return () => {
+      document.removeEventListener('keydown', handleDocumentKeyDown);
+    };
+  });
 
   return (
     <>
