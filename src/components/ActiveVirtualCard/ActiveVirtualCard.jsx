@@ -19,8 +19,10 @@ export const ActiveVirtualCard = () => {
       console.log(1)
   
       const request = {
-        key,
-        otp,
+        key: key,
+        otp: otp,
+        PAN: '123',
+        PIN: '123'
       };
       console.log(request)
   
