@@ -13,39 +13,30 @@ export const ChangePhysicalPIN = () => {
   const { key } = useParams();
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleChangePIN = async (otp) => {
+  const changePhysicalCardPIN = async (otp) => {
     try {
-      setIsLoading(true)
-      console.log(1)
-
-      const requestBody = {
-        key: key,
-        otp: otp,
+      setIsLoading(true);
+  
+      const request = {
+        key,
+        otp,
       };
-      console.log(2)
+  
+      await axios.post('https://dev2.fin.forkflow.com/fe/physical-card/change-pin', request);
 
-      const response = await axios.post('/physical-card/change-pin', requestBody);
-      console.log(3)
-
-      if (response.status === 200) {
-        updateData(...requestBody)
-        setSuccess(true)
-        console.log(44)
-      }
+      updateData(request)
+      setSuccess(true);
     } catch (error) {
       if (error.response?.status === 401) {
         setError('Access blocked');
-        console.log(4)
       } else if (error.response?.status === 400) {
-        handleError('Wrong OTP code or invalid PAN. Please try again!');
-        console.log(5)
+        handleError('Wrong OTP code. Please try again!');
       } else {
         setError('An unexpected error occurred');
-        console.log(6, error.response?.status)
       }
     }
-
-    setIsLoading(false)
+  
+    setIsLoading(false);
   };
 
   const handleError = (error) => {
@@ -55,7 +46,7 @@ export const ChangePhysicalPIN = () => {
 
   return (
     <div className='body'>
-      {success ? <OldPinCheck /> : <SmsField checkSms={handleChangePIN} error={error} isLoading={isLoading} />}
+      {success ? <OldPinCheck /> : <SmsField checkSms={changePhysicalCardPIN} error={error} isLoading={isLoading} />}
     </div>
   );
 }
