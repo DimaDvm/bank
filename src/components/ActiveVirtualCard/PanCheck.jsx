@@ -24,24 +24,22 @@ export const PanCheck = () => {
         otp: 8888,
         PAN: PAN
       };
-      console.log(request)
   
       await axios.post('https://dev2.fin.forkflow.com/fe/physical-card/activate', request);
       console.log(321)
 
       updateData({ PAN: PAN });
-      console.log(requestedData);
       setSuccess(true);
     } catch (error) {
       if (error.response?.status === 401) {
         setError('Access blocked');
-        console.log(1)
+        console.log(111)
       } else if (error.response?.status === 400) {
         handleError('Wrong OTP code. Please try again!');
-        console.log(2)
+        console.log(222)
       } else {
         setError('An unexpected error occurred');
-        console.log(3, error)
+        console.log(333, error)
       }
     }
   
