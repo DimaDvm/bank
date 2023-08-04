@@ -24,6 +24,14 @@ export const PanField = ({ handleSuccess, error, isLoading }) => {
     }
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const PIN = numbers.join('');
+
+    handleSuccess(PIN);
+  };
+
   return (
     <>
       <div className="container">
@@ -79,7 +87,7 @@ export const PanField = ({ handleSuccess, error, isLoading }) => {
               ))}
             </div>
 
-            <button className='button-active' onClick={handleSuccess}>Active card</button>
+            <button className='button-active' onClick={handleSubmit}>Active card</button>
           </div>
         </div>
       </div>
