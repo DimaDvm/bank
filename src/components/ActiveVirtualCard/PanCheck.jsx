@@ -16,11 +16,11 @@ export const PanCheck = () => {
   const handleActivatePhysicalCard = async (PAN) => {
     try {
       setIsLoading(true);
-      updateData({ PAN: PAN })
 
       const response = await activatePhysicalCard({ ...requestedData, PAN: PAN });
 
       if (response.status === 200) {
+        updateData({ PAN: PAN })
         setSuccess(true);
       }
 

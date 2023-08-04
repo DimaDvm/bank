@@ -15,11 +15,11 @@ export const PinCheck = () => {
   const handleActivatePhysicalCard = async (PIN) => {
     try {
       setIsLoading(true);
-      updateData({ PIN: PIN })
 
       const response = await activatePhysicalCard({ ...requestedData, PIN: PIN });
 
       if (response.status === 200) {
+        updateData({ PIN: PIN })
         setSuccess(true);
       }
 
