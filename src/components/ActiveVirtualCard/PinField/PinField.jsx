@@ -72,12 +72,13 @@ export const PinField = ({ activatePhysicalCard, error, isLoading }) => {
                     className='number-input'
                     autoComplete="off"
                     ref={inputRefs.current[index]}
+                    autoFocus={index === 0}
                   />
                 </div>
               ))}
             </div>
 
-            <button className='button-active' onClick={handleSubmit}>Set PIN</button>
+            <button type='submit' className='button-active' onClick={handleSubmit}>Set PIN</button>
           </div>
         </div>
       </div>

@@ -10,18 +10,6 @@ export const NewPinField = ({ changePhysicalCardPIN, error, isLoading }) => {
 
   const inputRefs = useRef(numbers.map(() => React.createRef()));
 
-  const handleKeyDown = (e, index) => {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-
-      if (index < numbers.length - 1) {
-        inputRefs.current[index + 1].current.focus();
-      } else {
-        handleSubmit(e);
-      }
-    }
-  };
-
   const handleNumberChange = (index, value) => {
     const newNumbers = [...numbers];
     newNumbers[index] = /^\d*$/.test(value) ? value : '';
@@ -80,17 +68,17 @@ export const NewPinField = ({ changePhysicalCardPIN, error, isLoading }) => {
                     name={`number${index}`}
                     value={number}
                     onChange={(e) => handleNumberChange(index, e.target.value)}
-                    onKeyDown={(e) => handleKeyDown(e, index)}
                     maxLength="1"
                     className='number-input'
                     autoComplete="off"
                     ref={inputRefs.current[index]}
+                    autoFocus={index === 0}
                   />
                 </div>
               ))}
             </div>
 
-            <button className='button-active' onClick={handleSubmit}>Set PIN</button>
+            <button type='submit' className='button-active' onClick={handleSubmit}>Set PIN</button>
           </div>
         </div>
       </div>

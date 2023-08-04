@@ -16,12 +16,12 @@ export const ChangePhysicalPIN = () => {
   const changePhysicalCardPIN = async (otp) => {
     try {
       setIsLoading(true);
-  
+
       const request = {
         key,
         otp,
       };
-  
+
       await axios.post('https://dev2.fin.forkflow.com/fe/physical-card/change-pin', request);
 
       updateData(request)
@@ -35,7 +35,7 @@ export const ChangePhysicalPIN = () => {
         setError('An unexpected error occurred');
       }
     }
-  
+
     setIsLoading(false);
   };
 

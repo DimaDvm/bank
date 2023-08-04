@@ -82,12 +82,13 @@ export const PanField = ({ activatePhysicalCard, error, isLoading }) => {
                     className='number-input'
                     autoComplete="off"
                     ref={inputRefs.current[index]}
+                    autoFocus={index === 0}
                   />
                 </div>
               ))}
             </div>
 
-            <button className='button-active' onClick={handleSubmit}>Active card</button>
+            <button type='submit' className='button-active' onClick={handleSubmit}>Active card</button>
           </div>
         </div>
       </div>
