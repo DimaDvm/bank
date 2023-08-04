@@ -26,6 +26,13 @@ export const SmsField = ({ checkSms, error, isLoading }) => {
     }
   };
 
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      handleSubmit(e);
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -79,7 +86,7 @@ export const SmsField = ({ checkSms, error, isLoading }) => {
         </div>
       )}
 
-      <div className="blur">
+      <div className="blur" onKeyDown={handleKeyDown}>
         <div className="code-section">
           <div className="title">Please enter code from SMS</div>
 
@@ -114,7 +121,7 @@ export const SmsField = ({ checkSms, error, isLoading }) => {
               )}
             </div>
 
-            <button type='submit' className='button' onClick={handleSubmit}>Confirm</button>
+            <button className='button' onClick={handleSubmit}>Confirm</button>
           </div>
         </div>
       </div>
