@@ -25,12 +25,11 @@ export const ActiveVirtualCard = () => {
       console.log(request)
   
       const response = await axios.post('https://dev2.fin.forkflow.com/fe/physical-card/activate', request);
-      console.log(2)
+      console.log(response)
   
       if (response.status === 200) {
         updateData(...request)
         setSuccess(true);
-        console.log(3)
       }
     } catch (error) {
       if (error.response?.status === 401) {

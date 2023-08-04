@@ -4,24 +4,22 @@ import '../../../styles/index.scss';
 import { useData } from '../../DataContext/Data';
 import { OldPinField } from './OldPinField';
 import { NewPinCheck } from '../NewPin/NewPinCheck';
-import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
 export const OldPinCheck = () => {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(null);
-  const { updateData } = useData();
-  const { key } = useParams();
+  const { requestedData, updateData } = useData();
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleChangePIN = async (otp) => {
+  const handleChangePIN = async (PAN) => {
     try {
       setIsLoading(true)
       console.log(1)
 
       const requestBody = {
-        key: key,
-        otp: otp,
+        ...requestedData,
+        PAN: PAN
       };
       console.log(2)
 
