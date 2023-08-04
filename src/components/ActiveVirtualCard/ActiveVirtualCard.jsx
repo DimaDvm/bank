@@ -33,7 +33,7 @@ export const ActiveVirtualCard = () => {
         setError('Access blocked');
         console.log(4)
       } else if (error.response?.status === 400) {
-        handleError('Wrong OTP code or invalid PAN. Please try again!');
+        handleError('Wrong OTP code. Please try again!');
         console.log(5)
       } else {
         setError('An unexpected error occurred');
