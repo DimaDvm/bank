@@ -5,6 +5,7 @@ import { PanField } from './PanField/PanField';
 import { PinCheck } from './PinCheck';
 import { useData } from '../DataContext/Data';
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
 
 export const PanCheck = () => {
@@ -12,14 +13,16 @@ export const PanCheck = () => {
   const { requestedData, updateData } = useData();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const { key } = useParams();
 
   const activatePhysicalCard = async (PAN) => {
     try {
       setIsLoading(true);
-      console.log(1)
+      console.log(requestedData)
   
       const request = {
-        ...requestedData,
+        key: key,
+        otp: 8888,
         PAN: PAN
       };
       console.log(requestedData)
