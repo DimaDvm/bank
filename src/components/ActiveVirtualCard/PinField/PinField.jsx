@@ -5,7 +5,7 @@ import '../../../styles/index.scss';
 import { NoDetails } from '../../ShowVirtualCardDetails/showVirtualCard/NoDetails/NoDetails';
 import { Rings } from 'react-loader-spinner';
 
-export const PinField = ({ handlePINSubmit, error, isLoading }) => {
+export const PinField = ({ activatePhysicalCard, error, isLoading }) => {
   const [numbers, setNumbers] = useState(['', '', '', '']);
 
   const inputRefs = useRef(numbers.map(() => React.createRef()));
@@ -22,6 +22,14 @@ export const PinField = ({ handlePINSubmit, error, isLoading }) => {
     } else if (nextEmptyIndex >= 0) {
       inputRefs.current[nextEmptyIndex].current.focus();
     }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const PIN = numbers.join('');
+
+    activatePhysicalCard(PIN);
   };
 
   return (
@@ -69,7 +77,7 @@ export const PinField = ({ handlePINSubmit, error, isLoading }) => {
               ))}
             </div>
 
-            <button className='button-active' onClick={handlePINSubmit}>Set PIN</button>
+            <button className='button-active' onClick={handleSubmit}>Set PIN</button>
           </div>
         </div>
       </div>

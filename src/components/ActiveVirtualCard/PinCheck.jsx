@@ -4,33 +4,36 @@ import '../../styles/index.scss';
 import { PinField } from './PinField/PinField';
 import { Success } from '../Success/Success';
 import { useData } from '../DataContext/Data';
-import { activatePhysicalCard } from '../../api/api';
+import axios from 'axios';
 
 export const PinCheck = () => {
   const [success, setSuccess] = useState(false);
-  const { requestedData, updateData } = useData();
+  const { requestedData } = useData();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const handleActivatePhysicalCard = async (PIN) => {
+  const activatePhysicalCard = async (PIN) => {
     try {
       setIsLoading(true);
 
-      const response = await activatePhysicalCard({ ...requestedData, PIN: PIN });
+      const request = {
+        ...requestedData,
+        PIN,
+      };
+  
+      await axios.post('https://dev2.fin.forkflow.com/fe/physical-card/activate', request);
 
-      if (response.status === 200) {
-        updateData({ PIN: PIN })
-        setSuccess(true);
-      }
-
+      setSuccess(true);
     } catch (error) {
       if (error.response?.status === 401) {
         setError('Access blocked');
+      } else if (error.response?.status === 400) {
+        handleError('Wrong card. Please try another one!');
       } else {
-        handleError('Something went wrong!');
+        setError('An unexpected error occurred');
       }
     }
-
+  
     setIsLoading(false);
   };
 
@@ -47,7 +50,7 @@ export const PinCheck = () => {
       {
         success 
           ? <Success isActivatingCard={isActivatingCard} /> 
-          : <PinField handlePINSubmit={handleActivatePhysicalCard} error={error} isLoading={isLoading} />
+          : <PinField activatePhysicalCard={activatePhysicalCard} error={error} isLoading={isLoading} />
       }
     </>
   );

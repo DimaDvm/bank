@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import '../../../styles/index.scss';
 import { Rings } from 'react-loader-spinner';
 
-export const PanField = ({ handleSuccess, error, isLoading }) => {
+export const PanField = ({ activatePhysicalCard, error, isLoading }) => {
   const [numbers, setNumbers] = useState(['', '', '', '']);
 
 
@@ -29,7 +29,7 @@ export const PanField = ({ handleSuccess, error, isLoading }) => {
 
     const PIN = numbers.join('');
 
-    handleSuccess(PIN);
+    activatePhysicalCard(PIN);
   };
 
   return (

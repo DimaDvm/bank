@@ -23,20 +23,16 @@ export const PanCheck = () => {
       };
   
       await axios.post('https://dev2.fin.forkflow.com/fe/physical-card/activate', request);
-      console.log(321)
 
       updateData({ PAN: PAN });
       setSuccess(true);
     } catch (error) {
       if (error.response?.status === 401) {
         setError('Access blocked');
-        console.log(111)
       } else if (error.response?.status === 400) {
         handleError('Wrong card. Please try another one!');
-        console.log(222)
       } else {
         setError('An unexpected error occurred');
-        console.log(333, error)
       }
     }
   
@@ -53,7 +49,7 @@ export const PanCheck = () => {
       {
         success 
           ? <PinCheck /> 
-          : <PanField handleSuccess={activatePhysicalCard} isLoading={isLoading} error={error} />
+          : <PanField activatePhysicalCard={activatePhysicalCard} isLoading={isLoading} error={error} />
       }
     </div>
   );
