@@ -68,6 +68,21 @@ export const SmsField = ({ checkSms, error, isLoading }) => {
     setFilled(numbers.some((num) => num));
   }, [numbers]);
 
+  useEffect(() => {
+    const handleDocumentKeyDown = (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        handleSubmit(e);
+      }
+    };
+  
+    document.addEventListener('keydown', handleDocumentKeyDown);
+  
+    return () => {
+      document.removeEventListener('keydown', handleDocumentKeyDown);
+    };
+  });
+
   return (
     <div className='card'>
       <div className="container">
