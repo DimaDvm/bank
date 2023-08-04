@@ -93,7 +93,7 @@ export const NewPinField = ({ changePhysicalCardPIN, error, isLoading }) => {
               ))}
             </div>
 
-            <button type='submit' className='button-active' onClick={handleSubmit}>Set PIN</button>
+            <button className='button-active' onClick={handleSubmit}>Set PIN</button>
           </div>
         </div>
       </div>

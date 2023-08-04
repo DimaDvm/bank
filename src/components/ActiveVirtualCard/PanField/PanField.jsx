@@ -103,7 +103,7 @@ export const PanField = ({ activatePhysicalCard, error, isLoading }) => {
               ))}
             </div>
 
-            <button type='submit' className='button-active' onClick={handleSubmit}>Active card</button>
+            <button className='button-active' onClick={handleSubmit}>Active card</button>
           </div>
         </div>
       </div>

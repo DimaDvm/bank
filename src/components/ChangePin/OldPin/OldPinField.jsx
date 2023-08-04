@@ -93,7 +93,7 @@ export const OldPinField = ({ handlePINSubmit, error, isLoading }) => {
               ))}
             </div>
 
-            <button type='submit' className='button-active orange' onClick={handleSubmit}>Next</button>
+            <button className='button-active orange' onClick={handleSubmit}>Next</button>
           </div>
         </div>
       </div>
