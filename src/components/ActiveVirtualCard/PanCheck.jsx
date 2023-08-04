@@ -4,7 +4,7 @@ import '../../styles/index.scss';
 import { PanField } from './PanField/PanField';
 import { PinCheck } from './PinCheck';
 import { useData } from '../DataContext/Data';
-import { activatePhysicalCard } from '../../api/api';
+import axios from 'axios';
 
 
 export const PanCheck = () => {
@@ -13,25 +13,35 @@ export const PanCheck = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const handleActivatePhysicalCard = async (PAN) => {
+  const activatePhysicalCard = async (PAN) => {
     try {
       setIsLoading(true);
+      console.log(1)
+  
+      const request = {
+        ...requestedData,
+        PAN: PAN
+      };
+      console.log(requestedData)
+  
+      await axios.post('https://dev2.fin.forkflow.com/fe/physical-card/activate', request);
+      console.log(123)
 
-      const response = await activatePhysicalCard({ ...requestedData, PAN: PAN });
-
-      if (response.status === 200) {
-        updateData({ PAN: PAN })
-        setSuccess(true);
-      }
-
+      updateData(request)
+      setSuccess(true);
     } catch (error) {
       if (error.response?.status === 401) {
         setError('Access blocked');
+        console.log(4)
+      } else if (error.response?.status === 400) {
+        handleError('Wrong OTP code. Please try again!');
+        console.log(5)
       } else {
-        handleError('Wrong card! Please try another one!');
+        setError('An unexpected error occurred');
+        console.log(6, error)
       }
     }
-
+  
     setIsLoading(false);
   };
 
@@ -45,7 +55,7 @@ export const PanCheck = () => {
       {
         success 
           ? <PinCheck /> 
-          : <PanField handleSuccess={handleActivatePhysicalCard} isLoading={isLoading} error={error} />
+          : <PanField handleSuccess={activatePhysicalCard} isLoading={isLoading} error={error} />
       }
     </div>
   );
