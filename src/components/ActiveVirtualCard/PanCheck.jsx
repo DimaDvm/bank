@@ -17,10 +17,8 @@ export const PanCheck = () => {
 
   const activatePhysicalCard = async (PAN) => {
     try {
-      console.log('start pan')
       setIsLoading(true);
-      console.log(requestedData)
-  
+
       const request = {
         key: key,
         otp: 8888,

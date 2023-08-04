@@ -16,29 +16,23 @@ export const ActiveVirtualCard = () => {
   const activatePhysicalCard = async (otp) => {
     try {
       setIsLoading(true);
-      console.log(1)
   
       const request = {
         key: key,
         otp: otp,
       };
-      console.log(request)
   
       await axios.post('https://dev2.fin.forkflow.com/fe/physical-card/activate', request);
-      console.log(123)
 
       updateData(request)
       setSuccess(true);
     } catch (error) {
       if (error.response?.status === 401) {
         setError('Access blocked');
-        console.log(4)
       } else if (error.response?.status === 400) {
         handleError('Wrong OTP code. Please try again!');
-        console.log(5)
       } else {
         setError('An unexpected error occurred');
-        console.log(6, error)
       }
     }
   
