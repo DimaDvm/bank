@@ -12,24 +12,24 @@ export const OldPinCheck = () => {
   const { requestedData, updateData } = useData();
   const [isLoading, setIsLoading] = useState(false);
 
-  const changePhysicalCardPIN = async (OldPIN) => {
+  const changePhysicalCardPIN = async (oldPIN) => {
     try {
       setIsLoading(true);
 
       const request = {
         ...requestedData,
-        OldPIN,
+        oldPIN,
       };
   
       await axios.post('https://dev2.fin.forkflow.com/fe/physical-card/change-pin', request);
 
-      updateData({ OldPIN: OldPIN });
+      updateData({ oldPIN: oldPIN });
       setSuccess(true);
     } catch (error) {
       if (error.response?.status === 401) {
         setError('Access blocked');
       } else if (error.response?.status === 400) {
-        handleError('Wrong card. Please try another one!');
+        handleError('Wrong PIN. Please try another one!');
       } else {
         setError('An unexpected error occurred');
       }

@@ -9,54 +9,37 @@ import axios from 'axios';
 export const NewPinCheck = () => {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(null);
-  const { requestedData, updateData } = useData();
+  const { requestedData } = useData();
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleChangePIN = async (PIN) => {
+  const changePhysicalCardPIN = async (PIN) => {
     try {
-      setIsLoading(true)
-      console.log(1)
+      setIsLoading(true);
 
-      const requestBody = {
+      const request = {
         ...requestedData,
-        PIN: PIN
+        PIN,
       };
-      console.log(2)
+  
+      await axios.post('https://dev2.fin.forkflow.com/fe/physical-card/change-pin', request);
 
-      const response = await axios.post('/physical-card/change-pin', requestBody);
-      console.log(3)
-
-      if (response.status === 200) {
-        updateData(...requestBody)
-        setSuccess(true)
-        console.log(44)
-      }
+      setSuccess(true);
     } catch (error) {
       if (error.response?.status === 401) {
         setError('Access blocked');
-        console.log(4)
-      } else if (error.response?.status === 400) {
-        handleError('Wrong OTP code or invalid PAN. Please try again!');
-        console.log(5)
       } else {
         setError('An unexpected error occurred');
-        console.log(6, error.response?.status)
       }
     }
-
-    setIsLoading(false)
+  
+    setIsLoading(false);
   };
-
-  const handleError = (error) => {
-    setError(error);
-    setTimeout(() => setError(null), 2000);
-  }
 
   const isActivatingCard = false;
 
   return (
     <>
-      {success ? <Success isActivatingCard={isActivatingCard} /> : <NewPinField handlePINSubmit={handleChangePIN} error={error} isLoading={isLoading} />}
+      {success ? <Success isActivatingCard={isActivatingCard} /> : <NewPinField changePhysicalCardPIN={changePhysicalCardPIN} error={error} isLoading={isLoading} />}
     </>
   );
 }

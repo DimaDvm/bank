@@ -5,10 +5,22 @@ import '../../../styles/index.scss';
 import { NoDetails } from '../../ShowVirtualCardDetails/showVirtualCard/NoDetails/NoDetails';
 import { Rings } from 'react-loader-spinner';
 
-export const NewPinField = ({ handlePINSubmit, error, isLoading }) => {
+export const NewPinField = ({ changePhysicalCardPIN, error, isLoading }) => {
   const [numbers, setNumbers] = useState(['', '', '', '']);
 
   const inputRefs = useRef(numbers.map(() => React.createRef()));
+
+  const handleKeyDown = (e, index) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+
+      if (index < numbers.length - 1) {
+        inputRefs.current[index + 1].current.focus();
+      } else {
+        handleSubmit(e);
+      }
+    }
+  };
 
   const handleNumberChange = (index, value) => {
     const newNumbers = [...numbers];
@@ -29,7 +41,7 @@ export const NewPinField = ({ handlePINSubmit, error, isLoading }) => {
 
     const userPIN = numbers.join('');
 
-    handlePINSubmit(userPIN);
+    changePhysicalCardPIN(userPIN);
     setNumbers(['', '', '', '']);
   };
 
@@ -68,6 +80,7 @@ export const NewPinField = ({ handlePINSubmit, error, isLoading }) => {
                     name={`number${index}`}
                     value={number}
                     onChange={(e) => handleNumberChange(index, e.target.value)}
+                    onKeyDown={(e) => handleKeyDown(e, index)}
                     maxLength="1"
                     className='number-input'
                     autoComplete="off"
