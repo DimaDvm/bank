@@ -24,6 +24,9 @@ export const PanCheck = () => {
         otp: 8888,
         PAN: PAN
       };
+      console.log(requestedData);
+      console.log('000');
+      console.log(request);
   
       await axios.post('https://dev2.fin.forkflow.com/fe/physical-card/activate', request);
       console.log(321)
