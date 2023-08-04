@@ -1,40 +1,61 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import '../../styles/index.scss';
 import { SmsField } from '../smsContent/SmsField';
 import { useData } from '../DataContext/Data';
 import { OldPinCheck } from './OldPin/OldPinCheck';
-
-const defaultVirtualCardDetails = {
-  pan: '1234 5678 9000 8888',
-  expMon: '12',
-  expYear: '29',
-  cardHolderName: 'Johny Cash',
-  cvv: '111'
-}
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
 
 export const ChangePhysicalPIN = () => {
   const [success, setSuccess] = useState(false);
-  const [details, setDetails] = useState(null);
   const [error, setError] = useState(null);
-  const { requestedData, updateData } = useData();
+  const { updateData } = useData();
+  const { key } = useParams();
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleError = () => {
-    setError('Wrong OTP code. Please try another one!');
+  const handleChangePIN = async (otp) => {
+    try {
+      setIsLoading(true)
+      console.log(1)
+
+      const requestBody = {
+        key: key,
+        otp: otp,
+      };
+      console.log(2)
+
+      const response = await axios.post('/physical-card/change-pin', requestBody);
+      console.log(3)
+
+      if (response.status === 200) {
+        updateData(...requestBody)
+        setSuccess(true)
+        console.log(44)
+      }
+    } catch (error) {
+      if (error.response?.status === 401) {
+        setError('Access blocked');
+        console.log(4)
+      } else if (error.response?.status === 400) {
+        handleError('Wrong OTP code or invalid PAN. Please try again!');
+        console.log(5)
+      } else {
+        setError('An unexpected error occurred');
+        console.log(6, error.response?.status)
+      }
+    }
+
+    setIsLoading(false)
+  };
+
+  const handleError = (error) => {
+    setError(error);
     setTimeout(() => setError(null), 2000);
   }
 
-  const handleSuccess = (response) => {
-    setSuccess(true);
-    setDetails(response)
-  }
-
-  useEffect(() => {
-    console.log(requestedData);
-  }, [requestedData]);
-
   return (
     <div className='body'>
-      {success ? <OldPinCheck details={details} /> : <SmsField checkSms={handleGetVirtualCardDetails} error={error} />}
+      {success ? <OldPinCheck /> : <SmsField checkSms={handleChangePIN} error={error} isLoading={isLoading} />}
     </div>
   );
 }

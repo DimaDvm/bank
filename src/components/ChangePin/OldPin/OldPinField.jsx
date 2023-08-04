@@ -3,8 +3,9 @@ import React, { useState, useRef } from 'react';
 import classNames from 'classnames';
 import '../../../styles/index.scss';
 import { NoDetails } from '../../ShowVirtualCardDetails/showVirtualCard/NoDetails/NoDetails';
+import { Rings } from 'react-loader-spinner';
 
-export const OldPinField = ({ handlePINSubmit, error }) => {
+export const OldPinField = ({ handlePINSubmit, error, isLoading }) => {
   const [numbers, setNumbers] = useState(['', '', '', '']);
 
   const inputRefs = useRef(numbers.map(() => React.createRef()));
@@ -35,8 +36,16 @@ export const OldPinField = ({ handlePINSubmit, error }) => {
   return (
     <>
       <div className="container">
-      <div className={classNames('background-circle-active', { 'red': error })} />
+        <div className={classNames('background-circle-active', { 'red': error })} />
       </div>
+
+      {isLoading && (
+        <div className="loader-overlay">
+          <div className="loader">
+            <Rings height='150' width='150' color="#ffa500" />
+          </div>
+        </div>
+      )}
 
       <div className='background-blur-active'>
         <div className='bank-card-active'>
