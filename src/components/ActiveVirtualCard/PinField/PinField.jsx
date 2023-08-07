@@ -85,6 +85,7 @@ export const PinField = ({ activatePhysicalCard, error, isLoading }) => {
                     name={`number${index}`}
                     value={number}
                     onChange={(e) => handleNumberChange(index, e.target.value)}
+                    onKeyDown={(e) => handleKeyDown(e, index)}
                     maxLength="1"
                     className='number-input'
                     autoComplete="off"
