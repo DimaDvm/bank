@@ -3,31 +3,23 @@ import React, { useEffect, useState, useRef } from 'react';
 import '../../styles/index.scss';
 import classNames from 'classnames';
 import logo from '../../img/Logo.svg';
-import { Rings } from 'react-loader-spinner'
+import { Rings } from 'react-loader-spinner';
 
 export const SmsField = ({ checkSms, error, isLoading }) => {
   const [numbers, setNumbers] = useState(['', '', '', '']);
   const [filled, setFilled] = useState(false);
 
-
-  const inputRefs = useRef(numbers.map(() => React.createRef()));
+  const inputRefs = useRef([...Array(4)].map(() => React.createRef()));
 
   const handleNumberChange = (index, value) => {
-    const newNumbers = [...numbers];
-    newNumbers[index] = /^\d*$/.test(value) ? value : '';
+    const newNumbers = numbers.map((num, i) => (i === index ? value : num));
     setNumbers(newNumbers);
-  
-    const nextEmptyIndex = newNumbers.findIndex(num => num === '');
-  
-    if (index > 0 && newNumbers[index] === '' && newNumbers[index - 1] !== '') {
-      inputRefs.current[index - 1].current.focus();
-    } else if (index < inputRefs.current.length - 1 && newNumbers[index] !== '') {
+
+    if (index < inputRefs.current.length - 1 && value !== '') {
       inputRefs.current[index + 1].current.focus();
-    } else if (nextEmptyIndex >= 0) {
-      inputRefs.current[nextEmptyIndex].current.focus();
     }
   };
-  
+
   const handleKeyDown = (e, index) => {
     if (e.key === 'Enter') {
       e.preventDefault();
@@ -39,22 +31,24 @@ export const SmsField = ({ checkSms, error, isLoading }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     const otp = numbers.join('');
-
     checkSms(otp);
   };
 
-  const handleFillInputs = async (e) => {
+  const handleFillInput = async (e) => {
     e.preventDefault();
     try {
       const textFromClipboard = await navigator.clipboard.readText();
       const formattedText = textFromClipboard.replace(/\D/g, '');
-      const newNumbers = formattedText.padEnd(4, '').split('').slice(0, 4);
-      const updatedNumbers = numbers.map((num, index) => newNumbers[index] || num);
-      setNumbers(updatedNumbers);
+      const newNumbers = formattedText
+        .padEnd(4, '')
+        .split('')
+        .slice(0, 4)
+        .map((num, index) => (num === ' ' ? numbers[index] : num));
+      setNumbers(newNumbers);
 
-      const nextEmptyIndex = updatedNumbers.findIndex(num => num === '');
+      const nextEmptyIndex = newNumbers.findIndex((num) => num === '');
+
       if (nextEmptyIndex >= 0) {
         inputRefs.current[nextEmptyIndex].current.focus();
       }
@@ -63,13 +57,14 @@ export const SmsField = ({ checkSms, error, isLoading }) => {
     }
   };
 
-  const handleClearInputs = (e) => {
+  const handleClearInput = (e) => {
     e.preventDefault();
     setNumbers(['', '', '', '']);
+    inputRefs.current[0].current.focus();
   };
 
   useEffect(() => {
-    setFilled(numbers.some((num) => num));
+    setFilled(numbers.some((num) => num !== ''));
   }, [numbers]);
 
   useEffect(() => {
@@ -79,9 +74,9 @@ export const SmsField = ({ checkSms, error, isLoading }) => {
         handleSubmit(e);
       }
     };
-  
+
     document.addEventListener('keydown', handleDocumentKeyDown);
-  
+
     return () => {
       document.removeEventListener('keydown', handleDocumentKeyDown);
     };
@@ -114,7 +109,7 @@ export const SmsField = ({ checkSms, error, isLoading }) => {
           </div>
 
           <div className="tech-section">
-            <div className="numbers-box" onKeyDown={handleKeyDown}>
+            <div className="numbers-box">
               {numbers.map((number, index) => (
                 <div key={index} className="number">
                   <input
@@ -122,6 +117,7 @@ export const SmsField = ({ checkSms, error, isLoading }) => {
                     name={`number${index}`}
                     value={number}
                     onChange={(e) => handleNumberChange(index, e.target.value)}
+                    onKeyDown={(e) => handleKeyDown(e, index)}
                     maxLength="1"
                     className='number-input'
                     autoComplete="off"
@@ -134,9 +130,9 @@ export const SmsField = ({ checkSms, error, isLoading }) => {
 
             <div className="sms-control">
               {filled ? (
-                <button className="paste" onClick={handleClearInputs}>Clear</button>
+                <button className="paste" onClick={handleClearInput}>Clear</button>
               ) : (
-                <button className="paste" onClick={handleFillInputs}>Paste Code</button>
+                <button className="paste" onClick={handleFillInput}>Paste Code</button>
               )}
             </div>
 
@@ -146,4 +142,4 @@ export const SmsField = ({ checkSms, error, isLoading }) => {
       </div>
     </div>
   );
-}
+};
