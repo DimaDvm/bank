@@ -7,25 +7,17 @@ import { Rings } from 'react-loader-spinner';
 export const PanField = ({ activatePhysicalCard, error, isLoading }) => {
   const [numbers, setNumbers] = useState(['', '', '', '']);
 
-
-  const inputRefs = useRef(numbers.map(() => React.createRef()));
+  const inputRefs = useRef([...Array(4)].map(() => React.createRef()));
 
   const handleNumberChange = (index, value) => {
-    const newNumbers = [...numbers];
-    newNumbers[index] = /^\d*$/.test(value) ? value : '';
+    const newNumbers = numbers.map((num, i) => (i === index ? value : num));
     setNumbers(newNumbers);
-  
-    const nextEmptyIndex = newNumbers.findIndex(num => num === '');
-  
-    if (index > 0 && newNumbers[index] === '' && newNumbers[index - 1] !== '') {
-      inputRefs.current[index - 1].current.focus();
-    } else if (index < inputRefs.current.length - 1 && newNumbers[index] !== '') {
+
+    if (index < inputRefs.current.length - 1 && value !== '') {
       inputRefs.current[index + 1].current.focus();
-    } else if (nextEmptyIndex >= 0) {
-      inputRefs.current[nextEmptyIndex].current.focus();
     }
   };
-  
+
   const handleKeyDown = (e, index) => {
     if (e.key === 'Enter') {
       e.preventDefault();
@@ -37,10 +29,8 @@ export const PanField = ({ activatePhysicalCard, error, isLoading }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    const PIN = numbers.join('');
-
-    activatePhysicalCard(PIN);
+    const userPIN = numbers.join('');
+    activatePhysicalCard(userPIN);
   };
 
   useEffect(() => {
@@ -50,13 +40,14 @@ export const PanField = ({ activatePhysicalCard, error, isLoading }) => {
         handleSubmit(e);
       }
     };
-  
+
     document.addEventListener('keydown', handleDocumentKeyDown);
-  
+
     return () => {
       document.removeEventListener('keydown', handleDocumentKeyDown);
     };
   });
+
 
   return (
     <>
