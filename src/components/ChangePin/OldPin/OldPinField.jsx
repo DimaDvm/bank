@@ -7,7 +7,6 @@ import { Rings } from 'react-loader-spinner';
 
 export const OldPinField = ({ handlePINSubmit, error, isLoading }) => {
   const [numbers, setNumbers] = useState(['', '', '', '']);
-  const [filled, setFilled] = useState(false);
 
   const inputRefs = useRef([...Array(4)].map(() => React.createRef()));
 
@@ -34,38 +33,6 @@ export const OldPinField = ({ handlePINSubmit, error, isLoading }) => {
     const userPIN = numbers.join('');
     handlePINSubmit(userPIN);
   };
-
-  const handleFillInput = async (e) => {
-    e.preventDefault();
-    try {
-      const textFromClipboard = await navigator.clipboard.readText();
-      const formattedText = textFromClipboard.replace(/\D/g, '');
-      const newNumbers = formattedText
-        .padEnd(4, '')
-        .split('')
-        .slice(0, 4)
-        .map((num, index) => (num === ' ' ? numbers[index] : num));
-      setNumbers(newNumbers);
-
-      const nextEmptyIndex = newNumbers.findIndex((num) => num === '');
-
-      if (nextEmptyIndex >= 0) {
-        inputRefs.current[nextEmptyIndex].current.focus();
-      }
-    } catch (error) {
-      throw new Error('Error reading clipboard: ' + error.message);
-    }
-  };
-
-  const handleClearInput = (e) => {
-    e.preventDefault();
-    setNumbers(['', '', '', '']);
-    inputRefs.current[0].current.focus();
-  };
-
-  useEffect(() => {
-    setFilled(numbers.some((num) => num !== ''));
-  }, [numbers]);
 
   useEffect(() => {
     const handleDocumentKeyDown = (e) => {
@@ -126,14 +93,6 @@ export const OldPinField = ({ handlePINSubmit, error, isLoading }) => {
                   />
                 </div>
               ))}
-            </div>
-
-            <div className="sms-control">
-              {filled ? (
-                <button className="paste" onClick={handleClearInput}>Clear</button>
-              ) : (
-                <button className="paste" onClick={handleFillInput}>Paste Code</button>
-              )}
             </div>
 
             <button className='button-active orange' onClick={handleSubmit}>Next</button>

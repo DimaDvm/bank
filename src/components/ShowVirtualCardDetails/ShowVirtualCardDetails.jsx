@@ -34,7 +34,6 @@ export const ShowVirtualCardDetails = () => {
       }
 
       setIsLoading(false);
-      setSuccess(true);
     };
 
   const handleError = (error) => {
