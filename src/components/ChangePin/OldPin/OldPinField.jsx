@@ -14,13 +14,24 @@ export const OldPinField = ({ handlePINSubmit, error, isLoading }) => {
     const newNumbers = [...numbers];
     newNumbers[index] = /^\d*$/.test(value) ? value : '';
     setNumbers(newNumbers);
-
+  
     const nextEmptyIndex = newNumbers.findIndex(num => num === '');
-
-    if (index < inputRefs.current.length - 1 && newNumbers[index] !== '') {
+  
+    if (index > 0 && newNumbers[index] === '' && newNumbers[index - 1] !== '') {
+      inputRefs.current[index - 1].current.focus();
+    } else if (index < inputRefs.current.length - 1 && newNumbers[index] !== '') {
       inputRefs.current[index + 1].current.focus();
     } else if (nextEmptyIndex >= 0) {
       inputRefs.current[nextEmptyIndex].current.focus();
+    }
+  };
+  
+  const handleKeyDown = (e, index) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      handleSubmit(e);
+    } else if (e.key === 'Backspace' && numbers[index] === '' && index > 0) {
+      inputRefs.current[index - 1].current.focus();
     }
   };
 
@@ -75,7 +86,7 @@ export const OldPinField = ({ handlePINSubmit, error, isLoading }) => {
           </div>
 
           <div className="tech-section">
-            <div className="numbers-box">
+            <div className="numbers-box" onKeyDown={handleKeyDown}>
               {numbers.map((number, index) => (
                 <div key={index} className="number">
                   <input

@@ -5,7 +5,6 @@ import { DataProvider } from './components/DataContext/DataContext';
 import { ChangePhysicalPIN } from './components/ChangePin/ChangePin';
 
 export const App = () => {
-
   return (
     <DataProvider>
       <Routes>
