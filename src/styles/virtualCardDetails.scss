@@ -122,11 +122,14 @@
   -webkit-backface-visibility: hidden;
   -moz-backface-visibility: hidden;
   backface-visibility: hidden;
+  -webkit-transform: rotateX(0deg);
   transform: rotateX(0deg);
   z-index: 1;
 }
 
 .back {
+  -webkit-transform: rotateY(180deg);
+  -moz-transform: rotateY(180deg);
   transform: rotateY(180deg);
 }
 
