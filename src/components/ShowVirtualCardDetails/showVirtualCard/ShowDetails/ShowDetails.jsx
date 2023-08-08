@@ -57,7 +57,7 @@ export const ShowDetails = ({ details, otp }) => {
         <p>{pan}</p>
         <p>
           <span className="sub">exp</span>
-          <span> {expMon || '08'}/{expYear || '12'}</span>
+          <span> {expMon}/{expYear}</span>
           <span> </span>
           <span className="sub">cvv</span>
           <span> </span>

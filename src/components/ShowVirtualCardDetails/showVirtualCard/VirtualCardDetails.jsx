@@ -6,13 +6,6 @@ import '../../../styles/index.scss';
 import { NoDetails } from './NoDetails/NoDetails';
 import { ShowDetails } from './ShowDetails/ShowDetails';
 
-const someDetails = {
-  cardHolderName: 'cardHolderName',
-  pan: 'pan',
-  expMon: '08',
-  expYear: '09',
-}
-
 export const VirtualCardDetails = ({ details, otp }) => {
   const [isFlipped, setIsFlipped] = useState(false);
 
@@ -33,7 +26,7 @@ export const VirtualCardDetails = ({ details, otp }) => {
         <div className='background-blur'>
           <div className={classNames('bank-card', { 'flipped': isFlipped })}>
             <div className="back">
-              {someDetails && <ShowDetails details={someDetails} otp={otp} />}
+              {details && <ShowDetails details={details} otp={otp} />}
             </div>
 
             <div className="front">
