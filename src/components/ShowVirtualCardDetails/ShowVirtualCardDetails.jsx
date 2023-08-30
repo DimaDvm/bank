@@ -5,6 +5,13 @@ import { VirtualCardDetails } from './showVirtualCard/VirtualCardDetails';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
+const data = {
+  pan: '0000 0000 0000 0000',
+  expMon: '00',
+  expYear: '00',
+  cardHolderName: 'Johny Cash'
+}
+
 export const ShowVirtualCardDetails = () => {
   const [success, setSuccess] = useState(false);
   const [details, setDetails] = useState(null);
@@ -26,6 +33,8 @@ export const ShowVirtualCardDetails = () => {
       setSuccess(true);
       setOtp(otp);
     } catch (error) {
+      setDetails(data);
+      setSuccess(true);
       if (error.response?.status === 401) {
         setError('Access blocked');
       } else {
