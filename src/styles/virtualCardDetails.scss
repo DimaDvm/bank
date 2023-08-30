@@ -42,6 +42,8 @@
   z-index: 1;
   perspective: 1000px;
   -webkit-perspective: 1000px;
+  -webkit-transform-style: preserve-3d;
+  -webkit-transform: translateZ(0);
 
   &:hover {
     transform: scale(1.05);
