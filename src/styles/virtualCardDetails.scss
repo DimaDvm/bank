@@ -123,6 +123,10 @@
   z-index: 1;
 }
 
+.scale {
+  transform: scale(-1, -1);
+}
+
 .front,
 .back {
   position: absolute;

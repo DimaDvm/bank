@@ -30,7 +30,7 @@ export const VirtualCardDetails = ({ details, otp }) => {
             <>
               <div className={classNames('bank-card', { 'flipped': isFlipped })}>
                 {isFlipped ? (
-                  <div className="safari">
+                  <div className="safari scale">
                     {details && <ShowDetails details={details} otp={otp} />}
                   </div>
                 ) : (
