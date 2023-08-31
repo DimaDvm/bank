@@ -13,6 +13,8 @@ export const VirtualCardDetails = ({ details, otp }) => {
     setIsFlipped(!isFlipped);
   }
 
+  const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+
   return (
     <>
       <div className='card'>
@@ -24,24 +26,52 @@ export const VirtualCardDetails = ({ details, otp }) => {
         </div>
 
         <div className='background-blur'>
-          <div className={classNames('bank-card', { 'flipped': isFlipped })}>
-            <div className="back safari">
-              {details && <ShowDetails details={details} otp={otp} />}
-            </div>
+          {isSafari ? (
+            <>
+              <div className={classNames('bank-card')}>
+                {isFlipped ? (
+                  <div className="back">
+                    {details && <ShowDetails details={details} otp={otp} />}
+                  </div>
+                ) : (
+                  <div className="front">
+                    <NoDetails />
+                  </div>
+                )}
+              </div>
 
-            <div className="front">
-              <NoDetails />
-            </div>
-          </div>
+              <div className="container">
+                <button
+                  className={classNames('active-button', { 'off': isFlipped })}
+                  onClick={handleShowDetails}
+                >
+                  {isFlipped ? 'Hide details' : 'Show details'}
+                </button>
+              </div>
+            </>
 
-          <div className="container">
-            <button
-              className={classNames('active-button', { 'off': isFlipped })}
-              onClick={handleShowDetails}
-            >
-              {isFlipped ? 'Hide details' : 'Show details'}
-            </button>
-          </div>
+          ) : (
+            <>
+              <div className={classNames('bank-card', { 'flipped': isFlipped })}>
+                <div className="back">
+                  {details && <ShowDetails details={details} otp={otp} />}
+                </div>
+
+                <div className="front">
+                  <NoDetails />
+                </div>
+              </div>
+
+              <div className="container">
+                <button
+                  className={classNames('active-button', { 'off': isFlipped })}
+                  onClick={handleShowDetails}
+                >
+                  {isFlipped ? 'Hide details' : 'Show details'}
+                </button>
+              </div>
+            </>
+          )}
         </div>
       </div>
     </>

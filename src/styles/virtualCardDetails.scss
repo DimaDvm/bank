@@ -42,8 +42,6 @@
   z-index: 1;
   perspective: 1000px;
   -webkit-perspective: 1000px;
-  -webkit-transform-style: preserve-3d;
-  -webkit-transform: translateZ(0);
 
   &:hover {
     transform: scale(1.05);
@@ -128,12 +126,6 @@
   backface-visibility: hidden;
   transform: translateZ(0);
   z-index: 1;
-}
-
-.safari {
-  -webkit-transform: rotateY(180deg);
-  -moz-transform: rotateY(180deg);
-  transform: rotateY(180deg);
 }
 
 .back {
