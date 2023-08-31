@@ -30,11 +30,11 @@ export const VirtualCardDetails = ({ details, otp }) => {
             <>
               <div className={classNames('bank-card')}>
                 {isFlipped ? (
-                  <div className="back">
+                  <div className="safari">
                     {details && <ShowDetails details={details} otp={otp} />}
                   </div>
                 ) : (
-                  <div className="front">
+                  <div className="safari">
                     <NoDetails />
                   </div>
                 )}
