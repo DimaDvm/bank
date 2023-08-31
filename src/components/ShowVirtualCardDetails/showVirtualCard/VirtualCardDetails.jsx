@@ -8,9 +8,11 @@ import { ShowDetails } from './ShowDetails/ShowDetails';
 
 export const VirtualCardDetails = ({ details, otp }) => {
   const [isFlipped, setIsFlipped] = useState(false);
+  const [changeSide, setChangeSide] = useState(false);
 
   const handleShowDetails = () => {
     setIsFlipped(!isFlipped);
+    setTimeout(() => setChangeSide(!changeSide), 290);
   }
 
   const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
@@ -29,7 +31,7 @@ export const VirtualCardDetails = ({ details, otp }) => {
           {isSafari ? (
             <>
               <div className={classNames('bank-card', { 'flipped': isFlipped })}>
-                {isFlipped ? (
+                {changeSide ? (
                   <div className="safari scale">
                     {details && <ShowDetails details={details} otp={otp} />}
                   </div>
