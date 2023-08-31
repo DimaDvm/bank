@@ -28,7 +28,7 @@ export const VirtualCardDetails = ({ details, otp }) => {
         <div className='background-blur'>
           {isSafari ? (
             <>
-              <div className={classNames('bank-card')}>
+              <div className={classNames('bank-card', { 'flipped': isFlipped })}>
                 {isFlipped ? (
                   <div className="safari">
                     {details && <ShowDetails details={details} otp={otp} />}
