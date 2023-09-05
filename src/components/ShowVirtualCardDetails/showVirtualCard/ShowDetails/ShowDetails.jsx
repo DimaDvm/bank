@@ -46,6 +46,8 @@ export const ShowDetails = ({ details, otp }) => {
     setShowCVV(!showCVV)
   }
 
+  const formattedCardNumber = pan.replace(/(\d{4})/g, '$1 ');
+
   return (
     <div className="details">
       <p className='service'>Customer Service: +44 20 3838 0706</p>
@@ -54,7 +56,7 @@ export const ShowDetails = ({ details, otp }) => {
 
       <div className="personal-data">
         <p>{cardHolderName}</p>
-        <p>{pan}</p>
+        <p>{formattedCardNumber}</p>
         <p>
           <span className="sub">exp</span>
           <span> {expMon}/{expYear}</span>

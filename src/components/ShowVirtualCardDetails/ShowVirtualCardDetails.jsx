@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
 const data = {
-  pan: '0000 0000 0000 0000',
+  pan: '0000000000000000',
   expMon: '00',
   expYear: '00',
   cardHolderName: 'Johny Cash'
