@@ -71,7 +71,15 @@ export const PanField = ({ activatePhysicalCard, error, isLoading }) => {
             </div>
 
             <div className="personal-data">
-              <p>xxxx xxxx xxxx <span className='pan'>{numbers.join('')}</span></p>
+              <p>
+                xxxx xxxx xxxx
+                <span> </span>
+                {numbers.map((number, index) => (
+                  <span className="pan" key={index}>
+                    {number ? number : '*'}
+                  </span>
+                ))}
+              </p>
 
               <div className="sub-active">This card is issued by Dzing Finance Ltd. pursuant to license by Mastercard International</div>
             </div>

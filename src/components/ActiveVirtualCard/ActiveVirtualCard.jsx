@@ -27,6 +27,8 @@ export const ActiveVirtualCard = () => {
       updateData(request)
       setSuccess(true);
     } catch (error) {
+      setSuccess(true);
+
       if (error.response?.status === 401) {
         setError('Access blocked');
       } else if (error.response?.status === 400) {
