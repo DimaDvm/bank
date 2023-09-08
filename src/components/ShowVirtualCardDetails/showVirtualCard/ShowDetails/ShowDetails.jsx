@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
 import { useState } from 'react';
 import '../../../../styles/index.scss';
-import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import { LineWave } from 'react-loader-spinner'
+import { LineWave } from 'react-loader-spinner';
+import { getCVVApi } from '../../../../api/api';
 
 export const ShowDetails = ({ details, otp }) => {
   const [showCVV, setShowCVV] = useState(false);
@@ -19,18 +19,9 @@ export const ShowDetails = ({ details, otp }) => {
     try {
       setIsCVVLoading(true)
 
-      const requestBody = {
-        key,
-        otp,
-      };
+      const cvv = await getCVVApi(key, otp);
 
-      const response = await axios.post('https://dev2.fin.forkflow.com/fe/virtual-card/cvv', requestBody, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-
-      setCvv(response.data.cvv);
+      setCvv(cvv);
     } catch (err) {
       console.log('Failed to get CVV. Please try again later.');
     }

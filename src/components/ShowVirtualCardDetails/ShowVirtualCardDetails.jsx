@@ -3,14 +3,7 @@ import '../../styles/index.scss';
 import { SmsField } from '../smsContent/SmsField';
 import { VirtualCardDetails } from './showVirtualCard/VirtualCardDetails';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
-
-const data = {
-  pan: '0000000000000000',
-  expMon: '00',
-  expYear: '00',
-  cardHolderName: 'Johny Cash'
-}
+import { fetchCardDetailsApi } from '../../api/api';
 
 export const ShowVirtualCardDetails = () => {
   const [success, setSuccess] = useState(false);
@@ -23,27 +16,22 @@ export const ShowVirtualCardDetails = () => {
   const fetchCardDetails = async (otp) => {
     try {
       setIsLoading(true);
-
-      const response = await axios.post('https://dev2.fin.forkflow.com/fe/virtual-card/details', {
-        key,
-        otp,
-      });
-
-      setDetails(response.data);
+  
+      const response = await fetchCardDetailsApi(key, otp);
+  
+      setDetails(response);
       setSuccess(true);
       setOtp(otp);
     } catch (error) {
-      setDetails(data);
-      setSuccess(true);
       if (error.response?.status === 401) {
         setError('Access blocked');
       } else {
-          handleError('Wrong OTP code. Please try another one!');
-        }
+        handleError('Wrong OTP code. Please try another one!');
       }
-
-      setIsLoading(false);
-    };
+    }
+  
+    setIsLoading(false);
+  };
 
   const handleError = (error) => {
     setError(error);
@@ -57,8 +45,8 @@ export const ShowVirtualCardDetails = () => {
   return (
     <div className='body'>
       {
-        success 
-          ? <VirtualCardDetails details={details} otp={otp} /> 
+        success
+          ? <VirtualCardDetails details={details} otp={otp} />
           : <SmsField checkSms={handleSuccess} error={error} isLoading={isLoading} />
       }
     </div>

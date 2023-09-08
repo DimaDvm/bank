@@ -5,6 +5,7 @@ import { useData } from '../DataContext/Data';
 import { OldPinCheck } from './OldPin/OldPinCheck';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import { baseUrl } from '../../api/api';
 
 export const ChangePhysicalPIN = () => {
   const [success, setSuccess] = useState(false);
@@ -22,7 +23,7 @@ export const ChangePhysicalPIN = () => {
         otp,
       };
 
-      await axios.post('https://dev2.fin.forkflow.com/fe/physical-card/change-pin', request);
+      await axios.post(`${baseUrl}physical-card/change-pin`, request);
 
       updateData(request)
       setSuccess(true);

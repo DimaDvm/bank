@@ -5,6 +5,7 @@ import { Success } from '../../Success/Success';
 import { useData } from '../../DataContext/Data';
 import { NewPinField } from './NewPinField';
 import axios from 'axios';
+import { baseUrl } from '../../../api/api';
 
 export const NewPinCheck = () => {
   const [success, setSuccess] = useState(false);
@@ -21,7 +22,7 @@ export const NewPinCheck = () => {
         PIN,
       };
   
-      await axios.post('https://dev2.fin.forkflow.com/fe/physical-card/change-pin', request);
+      await axios.post(`${baseUrl}physical-card/change-pin`, request);
 
       setSuccess(true);
     } catch (error) {

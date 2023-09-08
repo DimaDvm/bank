@@ -5,6 +5,7 @@ import { useData } from '../../DataContext/Data';
 import { OldPinField } from './OldPinField';
 import { NewPinCheck } from '../NewPin/NewPinCheck';
 import axios from 'axios';
+import { baseUrl } from '../../../api/api';
 
 export const OldPinCheck = () => {
   const [success, setSuccess] = useState(false);
@@ -21,7 +22,7 @@ export const OldPinCheck = () => {
         oldPIN,
       };
   
-      await axios.post('https://dev2.fin.forkflow.com/fe/physical-card/change-pin', request);
+      await axios.post(`${baseUrl}physical-card/change-pin`, request);
 
       updateData({ oldPIN: oldPIN });
       setSuccess(true);

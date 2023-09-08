@@ -5,6 +5,7 @@ import { PanField } from './PanField/PanField';
 import { PinCheck } from './PinCheck';
 import { useData } from '../DataContext/Data';
 import axios from 'axios';
+import { baseUrl } from '../../api/api';
 
 
 export const PanCheck = () => {
@@ -22,7 +23,7 @@ export const PanCheck = () => {
         PAN,
       };
   
-      await axios.post('https://dev2.fin.forkflow.com/fe/physical-card/activate', request);
+      await axios.post(`${baseUrl}physical-card/activate`, request);
 
       updateData({ PAN: PAN });
       setSuccess(true);

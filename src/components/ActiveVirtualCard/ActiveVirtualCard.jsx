@@ -5,6 +5,7 @@ import { PanCheck } from './PanCheck';
 import { useData } from '../DataContext/Data';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import { baseUrl } from '../../api/api';
 
 export const ActiveVirtualCard = () => {
   const [success, setSuccess] = useState(false);
@@ -22,13 +23,11 @@ export const ActiveVirtualCard = () => {
         otp,
       };
   
-      await axios.post('https://dev2.fin.forkflow.com/fe/physical-card/activate', request);
+      await axios.post(`${baseUrl}physical-card/activate`, request);
 
       updateData(request)
       setSuccess(true);
     } catch (error) {
-      setSuccess(true);
-
       if (error.response?.status === 401) {
         setError('Access blocked');
       } else if (error.response?.status === 400) {
