@@ -33,7 +33,7 @@ export const ShowVirtualCardDetails = () => {
       setSuccess(true);
       setDetails(detailsProto);
       if (error.response?.status === 401) {
-        setError('Access blocked');
+        // setError('Access blocked');
       } else {
         handleError('Wrong OTP code. Please try another one!');
       }
