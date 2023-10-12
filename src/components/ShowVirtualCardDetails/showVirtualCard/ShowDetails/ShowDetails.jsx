@@ -5,6 +5,8 @@ import { useParams } from 'react-router-dom';
 import { LineWave } from 'react-loader-spinner';
 import { getCVVApi } from '../../../../api/api';
 
+const cvvProto = 123;
+
 export const ShowDetails = ({ details, otp }) => {
   const [showCVV, setShowCVV] = useState(false);
   const [cvv, setCvv] = useState(null);
@@ -23,6 +25,7 @@ export const ShowDetails = ({ details, otp }) => {
 
       setCvv(cvv);
     } catch (err) {
+      setCvv(cvvProto);
       console.log('Failed to get CVV. Please try again later.');
     }
 
