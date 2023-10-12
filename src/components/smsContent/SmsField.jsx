@@ -40,15 +40,19 @@ export const SmsField = ({ checkSms, error, isLoading }) => {
     try {
       const textFromClipboard = await navigator.clipboard.readText();
       const formattedText = textFromClipboard.replace(/\D/g, '');
+  
+      if (formattedText.length < 4) {
+        return;
+      }
+  
       const newNumbers = formattedText
         .padEnd(4, '')
         .split('')
-        .slice(0, 4)
-        .map((num, index) => (num === ' ' ? numbers[index] : num));
+        .map((num, index) => (num === ' ' ? numbers[index] || '' : num));
       setNumbers(newNumbers);
-
+  
       const nextEmptyIndex = newNumbers.findIndex((num) => num === '');
-
+  
       if (nextEmptyIndex >= 0) {
         inputRefs.current[nextEmptyIndex].current.focus();
       }
